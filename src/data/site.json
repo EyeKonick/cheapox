@@ -1,0 +1,151 @@
+{
+  "name": "CheaPOX Travel and Tours",
+  "shortName": "CheaPOX",
+  "tagline": "Cheap Na, Oks Na Oks Pa!",
+  "seo": {
+    "title": "CheaPOX Travel and Tours | All-in trips from Mendez, Cavite",
+    "description": "All-in Asia trips from ₱19,999 and escorted Europe, Middle East and cruise packages, booked by CheaPOX Travel and Tours in Mendez, Cavite. Cheap Na, Oks Na Oks Pa!"
+  },
+  "owner": {
+    "name": "Arnel V. Bael",
+    "role": "Owner / Travel Consultant"
+  },
+  "address": {
+    "line": "120 Unit C, J.P. Rizal St., Brgy. 1, Mendez, Cavite 4121, Philippines",
+    "street": "120 Unit C, J.P. Rizal St., Brgy. 1",
+    "locality": "Mendez",
+    "region": "Cavite",
+    "postalCode": "4121",
+    "country": "PH"
+  },
+  "contact": {
+    "mobile": "+63 945 993 7084",
+    "mobileE164": "+639459937084",
+    "landline": "+63 46 889 3685",
+    "landlineE164": "+63468893685",
+    "email": "cheapox8@gmail.com",
+    "hours": "[Hours]",
+    "facebookUrl": "#facebook-url-pending",
+    "facebookName": "CheaPOX Travel and Tours",
+    "instagramHandle": "cheapox.travel.tours",
+    "instagramUrl": "https://www.instagram.com/cheapox.travel.tours/",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=120+Unit+C+J.P.+Rizal+St.+Brgy.+1+Mendez+Cavite+4121+Philippines"
+  },
+  "hero": {
+    "packageId": "bangkok",
+    "photo": {
+      "src": "hero/bangkok-yaowarat.jpg",
+      "alt": "Tuk-tuks under the red neon signs of Yaowarat Road, Bangkok's Chinatown, on a rainy night",
+      "caption": "Yaowarat, Bangkok"
+    },
+    "headlineBefore": "Get the barkada trip",
+    "headlineHighlight": "out of the",
+    "headlineAfter": "group chat.",
+    "sub": "Send us your dates and headcount; we plan the rest."
+  },
+  "marquee": [
+    "hong-kong",
+    "da-nang",
+    "bangkok",
+    "japan"
+  ],
+  "packagesSection": {
+    "titleTop": "Featured",
+    "titleBottom": "packages",
+    "intro": "Per person, priced exactly like our flyers. Asia trips are all-in; ask us for each long-haul tour’s inclusions. Departures out of Manila, Davao, Cebu or Clark, depending on the tour.",
+    "asiaTitle": "Asia, all-in",
+    "asiaUnit": "₱",
+    "asiaNote": "One price covers the lot. Tell us your dates and headcount and we’ll confirm the final rate.",
+    "longhaulTitle": "Europe, Middle East and cruises",
+    "longhaulUnit": "$",
+    "longhaulNote": "Prices are per pax. Airline taxes, visa fees, travel insurance and tipping are usually on top; we’ll spell it out in your quote.",
+    "footCta": "Inquire about a package",
+    "footNote": "Group or company tour? We quote those too.",
+    "confirmNote": "Prices are “from” rates copied from our current flyers and can change. We confirm your final price before you pay.",
+    "asiaNoteTitle": "Every Asia trip is all-in",
+    "asiaIncludes": [
+      "Roundtrip airfare",
+      "Hotel with breakfast",
+      "Tours & transfers",
+      "Airport transfers",
+      "Air-con vehicle with driver",
+      "Meals, where stated"
+    ],
+    "panelCoversLabel": "Covers"
+  },
+  "toursSection": {
+    "titleTop": "Day by day",
+    "titleBottom": "guided tours",
+    "intro": "Our long tours, laid out the way the flyer does it: where you sleep, what you see and which meals are covered, every day.",
+    "daysLabel": "Itinerary",
+    "includedLabel": "Included",
+    "excludedLabel": "Not included",
+    "cta": "Ask for this itinerary"
+  },
+  "servicesSection": {
+    "titleTop": "What we",
+    "titleBottom": "book for you",
+    "intro": "One local office for the whole trip, from the ticket to the transfer."
+  },
+  "howToBook": {
+    "titleTop": "Booking’s",
+    "titleBottom": "easy lang",
+    "steps": [
+      {
+        "title": "Inquire",
+        "text": "Message us on Facebook or call. Tell us where, when and how many."
+      },
+      {
+        "title": "Choose",
+        "text": "We send options and a full quote. Pick the one that fits your barkada and budget."
+      },
+      {
+        "title": "Pay",
+        "text": "Confirm your booking and pay. Major credit cards are accepted, with installment options."
+      },
+      {
+        "title": "Travel",
+        "text": "Get your itinerary, pack, and go. Questions along the way? Just message us."
+      }
+    ],
+    "cards": [
+      "Visa",
+      "Mastercard",
+      "JCB",
+      "American Express",
+      "Discover"
+    ],
+    "cardsLabel": "We accept major credit cards",
+    "installmentNote": "Installment options are subject to your card issuer’s terms and approval."
+  },
+  "about": {
+    "titleTop": "Local office,",
+    "titleBottom": "long-haul trips",
+    "paragraphs": [
+      "CheaPOX Travel and Tours is a travel and tours agency on J.P. Rizal St. in Mendez, Cavite. Our name is our promise, and so is our tagline: the trip should be cheap, and still oks na oks.",
+      "Arnel V. Bael, our owner and travel consultant, handles every inquiry personally. Send your dates, headcount and budget, and you’ll get options that fit, from all-in Asia trips to escorted tours in Europe and the Middle East, out of Manila, Davao, Cebu or Clark, depending on the tour.",
+      "Barkadas, families and company groups are all welcome. Drop by the office, or just message us."
+    ]
+  },
+  "gallerySection": {
+    "titleTop": "Saan tayo",
+    "titleBottom": "next?",
+    "intro": "A few of the places our packages go. Tap any photo’s tag to jump to its package."
+  },
+  "testimonialsSection": {
+    "titleTop": "Postcards from",
+    "titleBottom": "the barkada",
+    "intro": "What travelers tell us after the trip, in their own words."
+  },
+  "contactSection": {
+    "titleTop": "Find us",
+    "titleBottom": "in Mendez",
+    "intro": "Walk in, call, or message. Whatever’s easiest for you."
+  },
+  "footer": {
+    "titleTop": "Tara,",
+    "titleBottom": "let’s go?",
+    "lead": "Send us where, when and how many. You’ll get a full quote from Arnel V. Bael, our owner and travel consultant.",
+    "installments": "Card installments available, subject to card issuer approval."
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "italic-serif-display",
+        "value": "*",
+        "files": [
+          "versions/v1-editorial.html"
+        ],
+        "createdAt": "2026-11-27T06:10:22.437Z",
+        "reason": "user brief pins Editorial Voyage: serif display type, magazine register"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "versions/v1-editorial.html"
+        ],
+        "createdAt": "2026-11-27T06:10:22.614Z",
+        "reason": "user brief pins V1 palette: cream and navy with a single orange accent"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "versions/v2-barkada.html"
+        ],
+        "createdAt": "2026-11-27T06:10:26.660Z",
+        "reason": "agent: flagged element is the circular price sticker on the photo, not a nested card"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "_originals/approved-design/v2-barkada-approved.html"
+        ],
+        "createdAt": "2026-11-27T07:16:51.538Z",
+        "reason": "agent: verbatim archive of the client-approved V2 comp, reference only, never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "_originals/approved-design/v2-barkada-approved.html"
+        ],
+        "createdAt": "2026-11-27T07:16:51.913Z",
+        "reason": "agent: verbatim archive of the client-approved V2 comp, reference only, never built or shipped"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "_originals/approved-design/v2-barkada-approved.html"
+        ],
+        "createdAt": "2026-11-27T07:16:52.136Z",
+        "reason": "agent: verbatim archive of the client-approved V2 comp, reference only, never built or shipped"
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "_originals/approved-design/v2-barkada-approved.html"
+        ],
+        "createdAt": "2026-11-27T07:16:52.344Z",
+        "reason": "agent: verbatim archive of the client-approved V2 comp, reference only, never built or shipped"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "scripts/og-image.html"
+        ],
+        "createdAt": "2026-11-27T07:16:52.555Z",
+        "reason": "agent: logo chip's offset drop shadow (0 10px 30px) copied from the approved hero; share-image source, not a page"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.34, 1.56, .64, 1)",
+        "createdAt": "2026-11-27T07:24:01.148Z",
+        "reason": "agent: --spring is the approved V2 comp's own easing for the price-tag settle/swing and sticker turns; brief requires preserving all existing animations"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "animation: var(--spring)",
+        "createdAt": "2026-11-27T07:24:01.340Z",
+        "reason": "agent: same approved --spring easing on the hero price tag, verbatim from the approved comp"
+      }
+    ]
+  }
+}

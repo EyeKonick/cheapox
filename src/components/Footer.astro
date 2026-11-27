@@ -1,0 +1,89 @@
+---
+// Approved footer: final "Inquire Now" call to action, the ticket stub, and the navy bar.
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import logo from '../assets/logo/cheapox-logo.jpg';
+import { getSite } from '../lib/site';
+
+const site = await getSite();
+const { contact, footer } = site;
+const year = new Date().getFullYear();
+---
+<footer class="footer" id="inquire">
+  <div class="footer__main">
+    <div>
+      <h2 class="display">{footer.titleTop} <span>{footer.titleBottom}</span></h2>
+      <p class="footer__lead">{footer.lead}</p>
+      <div class="actions">
+        <a class="btn btn--primary" href={contact.facebookUrl}>Inquire Now <Icon name="arrow" strokeWidth={2.2} /></a>
+        <a class="btn btn--ghost" href={`https://wa.me/${contact.mobileE164.slice(1)}`}>Call / WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="stub">
+      <div class="stub__top">
+        <span class="chip"><Picture src={logo} alt={`${site.name} logo`} formats={['webp']} widths={[92, 184, 276]} sizes="92px" quality={95} /></span>
+        <p>{site.tagline}<span>{footer.installments}</span></p>
+      </div>
+      <dl>
+        <dt>Visit</dt><dd>{site.address.line}</dd>
+        <dt>Hours</dt><dd>{contact.hours}</dd>
+        <dt>Mobile</dt><dd><a href={`tel:${contact.mobileE164}`}>{contact.mobile}</a> · WhatsApp &amp; Viber</dd>
+        <dt>Landline</dt><dd><a href={`tel:${contact.landlineE164}`}>{contact.landline}</a></dd>
+        <dt>Email</dt><dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
+        <dt>Social</dt><dd><a href={contact.facebookUrl}>Facebook</a> · <a href={contact.instagramUrl}>Instagram @{contact.instagramHandle}</a></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="footer__bar">
+    <span>© {year} {site.name}, {site.address.locality}, {site.address.region}</span>
+    <nav aria-label="Footer">
+      <a href="#packages">Packages</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--yellow); }
+  .footer__main { display: grid; grid-template-columns: 1.25fr 1fr; gap: 72px; padding: var(--section-top) var(--gutter) 112px; align-items: center; }
+  .footer h2 { font-size: var(--fs-footer); margin: 0 0 36px; }
+  .footer h2 span { color: var(--orange-deep); }
+  .footer__lead { font-size: var(--fs-lead); font-weight: 500; max-width: 26em; margin: 0 0 40px; }
+  .stub { background: var(--white); border-radius: 32px; padding: 40px; box-shadow: 0 30px 60px rgba(120,80,0,.22); position: relative; }
+  .stub::before, .stub::after { content: ""; position: absolute; top: 168px; width: 36px; height: 36px; border-radius: 50%; background: var(--yellow); }
+  .stub::before { left: -18px; } .stub::after { right: -18px; }
+  .stub__top { display: flex; gap: 24px; align-items: center; padding-bottom: 36px; margin-bottom: 32px; border-bottom: 2.5px dashed rgba(20,32,74,.22); }
+  .stub__top .chip { display: inline-flex; padding: 6px; background: #fff; border-radius: 18px; box-shadow: 0 0 0 2px rgba(20,32,74,.08); }
+  .stub__top :global(img) { width: 92px; height: 92px; }
+  .stub__top p { margin: 0; font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 34px; line-height: .95; }
+  .stub__top p span { display: block; font-size: 16px; font-weight: 600; font-variation-settings: "wdth" 100; text-transform: none; color: var(--ink-soft); margin-top: 8px; line-height: 1.3; }
+  .stub dl { display: grid; grid-template-columns: 120px 1fr; gap: 14px 20px; margin: 0; font-size: 16.5px; }
+  .stub dt { font-weight: 700; color: var(--orange-deep); }
+  .stub dd { margin: 0; }
+  .stub a { text-decoration-color: var(--orange); text-underline-offset: 4px; }
+  .footer__bar { background: var(--navy); color: var(--on-navy-soft); display: flex; justify-content: space-between; align-items: center; gap: 32px; padding: 26px var(--gutter); font-size: 15px; }
+  .footer__bar nav { display: flex; gap: 28px; }
+  .footer__bar a { text-decoration: none; color: var(--white); font-weight: 600; }
+  .footer__bar a:hover { color: var(--yellow); }
+  .footer__bar :focus-visible { outline-color: var(--yellow); }
+
+  @media (max-width: 1100px) {
+    .footer__main { grid-template-columns: 1fr; gap: 64px; }
+    .stub { max-width: 640px; }
+  }
+  @media (max-width: 560px) {
+    .footer__main { padding-bottom: 80px; }
+    .stub { padding: 28px 22px; }
+    .stub::before, .stub::after { top: 140px; }
+    .stub__top { gap: 16px; padding-bottom: 28px; }
+    .stub__top :global(img) { width: 72px; height: 72px; }
+    .stub__top p { font-size: 28px; }
+    .stub dl { grid-template-columns: 1fr; gap: 4px; }
+    .stub dd { margin-bottom: 12px; }
+    .footer__bar { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer__bar nav { flex-wrap: wrap; gap: 12px 24px; }
+  }
+</style>

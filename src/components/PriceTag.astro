@@ -1,0 +1,42 @@
+---
+// The hanging orange price tag that sits on the hero's photo/panel seam.
+import { getPackage, getSite, formatPrice } from '../lib/site';
+const site = await getSite();
+const pkg = (await getPackage(site.hero.packageId)).data;
+const price = formatPrice(pkg.currency, pkg.price);
+const from = pkg.currency === 'PHP' ? 'all-in from' : 'from, per pax';
+const label = `${pkg.name} ${pkg.currency === 'PHP' ? 'all-in package' : 'package'} from ${price}. ${site.tagline} Inquire now`;
+---
+<a class="tag" href={site.contact.facebookUrl} aria-label={label} data-swing="-7">
+  <span class="tag__string" aria-hidden="true"></span>
+  <span class="tag__body">
+    <span class="tag__dest">{pkg.name}</span>
+    <span class="tag__from">{from}</span>
+    <span class="tag__price">{price}</span>
+    <span class="tag__note">{site.tagline}</span>
+  </span>
+</a>
+
+<style>
+  .tag { position: absolute; z-index: 4; left: 46%; top: 34%; translate: -74% 0; transform-origin: 50% 0; rotate: -7deg; animation: settle 1.6s .3s var(--spring) both; text-decoration: none; }
+  /* The hover swing is played from BaseLayout's [data-swing] script so it always finishes and never restarts mid-swing. */
+  .tag__string { display: block; width: 3px; height: 70px; margin: 0 auto; background: var(--yellow); border-radius: 2px; }
+  .tag__body { position: relative; display: block; width: 256px; padding: 46px 20px 26px; background: var(--orange); color: var(--navy); border-radius: 18px 18px 22px 22px;
+    clip-path: polygon(22% 0, 78% 0, 100% 15%, 100% 100%, 0 100%, 0 15%); box-shadow: 0 24px 40px rgba(20,32,74,.28); text-align: center; }
+  .tag__body::before { content: ""; position: absolute; top: 14px; left: 50%; width: 18px; height: 18px; translate: -50% 0; border-radius: 50%; background: var(--yellow); box-shadow: inset 0 0 0 4px var(--navy); }
+  .tag__dest { display: block; font-weight: 700; font-size: 18px; letter-spacing: .02em; }
+  .tag__from { display: block; font-size: 15px; font-weight: 600; }
+  .tag__price { display: block; color: var(--white); font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: 62px; line-height: .95; letter-spacing: -.02em; margin: 2px 0 6px; }
+  .tag__note { display: inline-block; white-space: nowrap; font-size: 13px; font-weight: 700; background: var(--navy); color: var(--yellow); padding: 4px 12px; border-radius: 999px; }
+
+  @media (max-width: 1279px) and (min-width: 901px) {
+    .tag { translate: -88% 0; scale: .92; }
+  }
+  /* Stacked hero: the tag hangs from the photo's lower right and overlaps the yellow panel's top edge. */
+  @media (max-width: 900px) {
+    .tag { left: auto; right: calc(var(--gutter) + 28px); top: calc(var(--hero-photo-h) - 196px); translate: 0 0; scale: .86; }
+  }
+  @media (max-width: 560px) {
+    .tag { right: 32px; top: calc(var(--hero-photo-h) - 150px); scale: .7; }
+  }
+</style>

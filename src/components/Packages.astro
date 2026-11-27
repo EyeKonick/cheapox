@@ -1,0 +1,111 @@
+---
+// The approved orange "Featured packages" section, extended to all 16 packages in two price groups.
+import PackageCard from './PackageCard.astro';
+import Icon from './Icon.astro';
+import { getCollection } from 'astro:content';
+import { getSite, getPackages } from '../lib/site';
+
+const site = await getSite();
+const s = site.packagesSection;
+const all = await getPackages();
+const asia = all.filter((p) => p.data.group === 'asia');
+const longhaul = all.filter((p) => p.data.group === 'longhaul');
+const inquire = site.contact.facebookUrl;
+const panel = { coversLabel: s.panelCoversLabel };
+// Packages that have a full day-by-day itinerary link straight to that tour's tab.
+const itinerary = new Map((await getCollection('tours')).filter((t) => t.data.packageId).map((t) => [t.data.packageId!, `#tour-${t.id}`]));
+// Typographic cards alternate navy and sky so neighbours never match.
+const tones = new Map<string, 'navy' | 'sky'>();
+all.filter((p) => !p.data.photo && p.data.kind !== 'cruise').forEach((p, i) => tones.set(p.id, i % 2 ? 'sky' : 'navy'));
+---
+<section class="packages" id="packages" aria-labelledby="pk-title">
+  <div class="sec-head packages__head">
+    <h2 class="display" id="pk-title">{s.titleTop}<br><span>{s.titleBottom}</span></h2>
+    <p class="packages__intro">{s.intro}</p>
+  </div>
+
+  <section class="group" aria-labelledby="pk-asia">
+    <h3 class="group__title display" id="pk-asia">{s.asiaTitle} <span class="unit" aria-label={`priced in pesos`}>{s.asiaUnit}</span></h3>
+    <div class="cards">
+      {asia.map((pkg) => <PackageCard pkg={pkg} inquireHref={inquire} tone={tones.get(pkg.id)} panel={panel} itineraryHref={itinerary.get(pkg.id)} />)}
+      <aside class="allin" aria-labelledby="pk-allin">
+        <p class="allin__title display" id="pk-allin">{s.asiaNoteTitle}</p>
+        <ul class="allin__list">
+          {s.asiaIncludes.map((item) => <li><Icon name="check" strokeWidth={2.6} />{item}</li>)}
+        </ul>
+        <p class="allin__note">{s.asiaNote}</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="group group--longhaul" aria-labelledby="pk-longhaul">
+    <div class="group__head">
+      <h3 class="group__title display" id="pk-longhaul">{s.longhaulTitle} <span class="unit" aria-label="priced in US dollars">{s.longhaulUnit}</span></h3>
+      <p class="group__note">{s.longhaulNote}</p>
+    </div>
+    <div class="cards">
+      {longhaul.map((pkg) => <PackageCard pkg={pkg} inquireHref={inquire} tone={tones.get(pkg.id)} panel={panel} itineraryHref={itinerary.get(pkg.id)} />)}
+    </div>
+  </section>
+
+  <div class="packages__foot">
+    <a class="btn btn--primary" href={inquire}>{s.footCta} <Icon name="arrow" strokeWidth={2.2} /></a>
+    <span>{s.footNote}</span>
+  </div>
+  <p class="packages__fine">{s.confirmNote}</p>
+</section>
+
+<style>
+  /* approved */
+  .packages { background: var(--orange); padding: var(--section-top) var(--gutter) var(--section-bottom); }
+  .packages__head { color: var(--white); }
+  .packages h2 { color: var(--white); }
+  .packages h2 span { color: var(--navy); }
+  .packages__intro { color: var(--navy); }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); align-items: start; grid-auto-flow: row dense; }
+  .packages__foot { margin-top: 72px; display: flex; gap: 20px; align-items: center; color: var(--navy); font-size: 19px; font-weight: 600; flex-wrap: wrap; }
+  .packages__foot .btn--primary { background: var(--yellow); color: var(--navy); }
+  .packages__foot .btn--primary:hover { background: var(--yellow-soft); }
+
+  /* added: price groups */
+  .group + .group { margin-top: 112px; padding-top: 72px; border-top: 2.5px dashed rgba(255,255,255,.5); }
+  .group__head { display: flex; justify-content: space-between; align-items: end; gap: 60px; margin-bottom: 48px; }
+  .group__head .group__title { margin: 0; }
+  .group__title { font-size: var(--fs-group); color: var(--white); margin: 0 0 48px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .unit { display: inline-grid; place-content: center; width: 1.25em; height: 1.25em; border-radius: 50%; background: var(--navy); color: var(--yellow); font-size: .8em; rotate: -8deg; box-shadow: 0 10px 22px rgba(20,32,74,.25); }
+  .group__note { margin: 0; max-width: 27em; font-size: 17px; font-weight: 600; color: var(--navy); }
+
+  /* the all-in note fills the row beside the last Asia card */
+  .allin { grid-column: span 3; align-self: center; background: var(--navy); color: var(--white); border-radius: var(--r-card); padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; gap: 24px; box-shadow: 0 24px 50px rgba(120,40,0,.25); }
+  .allin__title { margin: 0; font-size: 56px; color: var(--yellow); }
+  .allin__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .allin__list li { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; padding: 9px 16px; border-radius: var(--r-pill); background: var(--white); color: var(--navy); }
+  .allin__list li:nth-child(3n+2) { rotate: -2deg; background: var(--yellow); }
+  .allin__list li:nth-child(3n) { rotate: 1.5deg; }
+  .allin__list :global(svg) { width: 16px; height: 16px; color: var(--orange-deep); }
+  .allin__note { margin: 0; font-size: 17px; color: var(--on-navy-soft); max-width: 40em; }
+
+  .packages__fine { margin: 20px 0 0; font-size: var(--fs-small); color: var(--navy); font-weight: 500; max-width: 60em; }
+
+  @media (max-width: 1279px) {
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    .allin { grid-column: 1 / -1; }
+  }
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .allin { grid-column: span 1; padding: 36px 32px; }
+    .allin__title { font-size: 44px; }
+  }
+  @media (max-width: 900px) {
+    .group__head { flex-direction: column; align-items: start; gap: 20px; }
+    .group + .group { margin-top: 80px; padding-top: 56px; }
+  }
+  @media (max-width: 560px) {
+    .cards { grid-template-columns: 1fr; }
+    .allin { grid-column: auto; padding: 32px 24px; }
+    .allin__title { font-size: 40px; }
+    .group__title { margin-bottom: 32px; }
+    .packages__foot { margin-top: 56px; }
+    .packages__foot .btn { width: 100%; justify-content: center; }
+  }
+</style>

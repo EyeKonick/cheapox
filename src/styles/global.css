@@ -1,0 +1,125 @@
+/* CheaPOX: Bold Barkada Pop
+   Tokens are the exact values of the approved 1440px design (versions/v2-barkada.html).
+   Section styles live in each component; only shared primitives are here. */
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* colour */
+  --yellow: #ffc629;
+  --yellow-soft: #ffe48a;
+  --orange: #f2661a;
+  --orange-deep: #a83800;
+  --navy: #14204a;
+  --navy-2: #24346b;
+  --sky: #6cc7f0;
+  --white: #ffffff;
+  --ink-soft: #3d4770;
+  --on-navy-soft: #d9ddef;
+
+  /* type */
+  --font: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --fs-hero: clamp(96px, 8.2vw, 132px);
+  --fs-section: 112px;      /* section titles (Featured packages) */
+  --fs-footer: 150px;       /* Tara, let's go? */
+  --fs-group: 64px;         /* package group titles */
+  --fs-card-title: 42px;
+  --fs-sticker: 34px;
+  --fs-lead: 21px;
+  --fs-intro: 19px;
+  --fs-body: 18px;
+  --fs-card: 16.5px;
+  --fs-small: 15px;
+
+  /* space */
+  --gutter: clamp(40px, 4.4vw, 80px);
+  --section-top: 128px;
+  --section-bottom: 120px;
+  --head-gap: 72px;         /* section head to content */
+  --grid-gap: 28px;
+  --stagger: 72px;          /* card offset on even cards */
+
+  /* shape */
+  --r-card: 28px;
+  --r-media: 18px;
+  --r-pill: 999px;
+
+  /* motion */
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--white); scrollbar-color: var(--orange) var(--yellow-soft); scroll-behavior: smooth; }
+body { margin: 0; background: var(--white); color: var(--navy); font: 400 var(--fs-body)/1.55 var(--font); font-variation-settings: "wdth" 100; -webkit-font-smoothing: antialiased; caret-color: var(--orange); }
+::selection { background: var(--navy); color: var(--yellow); }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+/* Leave room for the floating nav when jumping to a section. */
+[id] { scroll-margin-top: 104px; }
+/* tilted stickers and punched holes may poke past a section edge; never let them cause sideways scroll */
+main > section, body > footer { overflow-x: clip; }
+
+.skip { position: absolute; left: 16px; top: -60px; background: var(--white); padding: 10px 16px; z-index: 10; }
+.skip:focus { top: 16px; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.display { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; letter-spacing: -.02em; line-height: .9; text-transform: uppercase; }
+
+.actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.btn { position: relative; display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; font-size: 18px; padding: 18px 30px; border-radius: var(--r-pill); transition: transform .4s var(--ease), background-color .25s, box-shadow .4s var(--ease); }
+.btn:hover { transform: translateY(-3px); }
+/* Invisible pad under the button: it lifts on hover but stays under the cursor, so the bottom edge doesn't flicker. */
+.btn::after { content: ""; position: absolute; inset: 0 0 -6px; border-radius: inherit; }
+.btn svg { transition: translate .4s var(--ease); }
+.btn:hover svg { translate: 3px 0; }
+.btn--primary { background: var(--navy); color: var(--yellow); }
+.btn--primary:hover { background: var(--navy-2); }
+.btn--ghost { border: 2.5px solid var(--navy); padding: 15.5px 28px; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* Section head shared by every body section: big display title left, intro right. */
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 60px; margin-bottom: var(--head-gap); }
+.sec-head h2 { font-size: var(--fs-section); margin: 0; }
+.sec-head p { font-size: var(--fs-intro); font-weight: 600; max-width: 25em; margin: 0; }
+
+@keyframes marquee { to { transform: translateX(-100%); } }
+@keyframes settle { from { rotate: -20deg; } to { rotate: -7deg; } }
+
+/* ---------- responsive tokens (the approved design is 1440px; everything below adapts it) ---------- */
+@media (max-width: 1279px) {
+  :root { --fs-section: 96px; --fs-footer: 124px; --fs-group: 56px; --section-top: 112px; --section-bottom: 104px; }
+}
+@media (max-width: 900px) {
+  :root { --fs-section: 80px; --fs-footer: 96px; --fs-group: 48px; --section-top: 88px; --section-bottom: 88px; --head-gap: 48px; --stagger: 48px; }
+  .sec-head { flex-direction: column; align-items: start; gap: 24px; }
+}
+@media (max-width: 560px) {
+  :root { --gutter: 20px; --fs-section: 60px; --fs-footer: 72px; --fs-group: 40px; --fs-card-title: 38px; --section-top: 72px; --section-bottom: 72px; --head-gap: 40px; --grid-gap: 24px; }
+  .btn { font-size: 17px; padding: 16px 24px; }
+  .btn--ghost { padding: 13.5px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

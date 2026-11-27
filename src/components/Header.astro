@@ -1,0 +1,128 @@
+---
+// Primary navigation, floating: it stays pinned to the top while the page scrolls, and once you leave the hero
+// it gains a white pill (with the logo sliding in at its left end) so it reads over every section. Desktop: the approved pill links. Below 1100px Inquire Now stays visible and the
+// section links move into a full-screen yellow menu. Without JS they simply wrap as a plain list.
+import { Picture } from 'astro:assets';
+import { getSite } from '../lib/site';
+import Icon from './Icon.astro';
+import logo from '../assets/logo/cheapox-logo.jpg';
+const site = await getSite();
+const links = [
+  { href: '#packages', label: 'Packages' },
+  { href: '#itineraries', label: 'Tours' },
+  { href: '#services', label: 'Services' },
+  { href: '#about', label: 'About' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+<nav class="nav" aria-label="Primary">
+  <a class="nav__logo" href="#top" aria-label={`${site.name}, back to top`}>
+    <Picture src={logo} alt="" formats={['webp']} widths={[44, 88, 132]} sizes="44px" quality={95} />
+  </a>
+  <div class="nav__links" id="site-menu">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    <a class="nav__cta nav__cta--menu" href={site.contact.facebookUrl}>Inquire Now</a>
+    <p class="nav__tagline display" aria-hidden="true">{site.tagline}</p>
+  </div>
+  <a class="nav__cta nav__cta--main" href={site.contact.facebookUrl}>Inquire Now</a>
+  <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+    <Icon name="menu" class="i-open" /><Icon name="close" class="i-close" /><span class="nav__toggle-label">Menu</span>
+  </button>
+</nav>
+
+<script is:inline>
+  (() => {
+    const nav = document.querySelector('.nav');
+    const btn = nav.querySelector('.nav__toggle');
+    const menu = nav.querySelector('.nav__links');
+    const label = btn.querySelector('.nav__toggle-label');
+    const set = (open, refocus) => {
+      nav.toggleAttribute('data-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      label.textContent = open ? 'Close' : 'Menu';
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+      if (open) menu.querySelector('a').focus();
+      else if (refocus) btn.focus();
+    };
+    btn.addEventListener('click', () => set(!nav.hasAttribute('data-open'), true));
+    menu.addEventListener('click', (e) => { if (e.target.closest('a')) set(false, false); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.hasAttribute('data-open')) set(false, true); });
+    matchMedia('(min-width: 1101px)').addEventListener('change', (m) => { if (m.matches) set(false, false); });
+    // Floating state: past the first few pixels of scroll the nav rises and gets its pill background.
+    let ticking = false;
+    const update = () => { nav.toggleAttribute('data-scrolled', scrollY > 24); ticking = false; };
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  })();
+</script>
+
+<style>
+  .nav { display: flex; justify-content: flex-end; align-items: center; gap: 8px; border-radius: 999px; }
+  /* Floating: fixed where the approved design puts it (36px down, flush with the gutter); the 6px padding is the
+     inside of the pill that appears on scroll, offset so the links don't move when it does. */
+  @media (min-width: 1101px) {
+    .nav { position: fixed; z-index: 50; top: 30px; right: calc(var(--gutter) - 6px); padding: 6px; }
+  }
+  .nav { transition: top .5s var(--ease), background-color .35s, box-shadow .5s var(--ease); }
+  .nav[data-scrolled] { top: 14px; background: var(--white); box-shadow: 0 14px 40px rgba(10,15,40,.22), 0 0 0 1px rgba(20,32,74,.06); }
+  .nav[data-open] { background: none; box-shadow: none; }
+
+  /* Logo: folded away (and unfocusable) at the top of the page, where the hero's own logo chip shows;
+     slides open at the pill's left end once the page scrolls. */
+  .nav .nav__logo { display: inline-flex; flex: none; padding: 0; max-width: 0; margin-right: -8px; opacity: 0; visibility: hidden; overflow: hidden; border-radius: 12px;
+    transition: max-width .5s var(--ease), margin-right .5s var(--ease), opacity .3s, visibility 0s .5s; }
+  .nav .nav__logo:hover { background: none; }
+  .nav__logo :global(picture) { display: contents; }
+  .nav__logo :global(img) { width: 44px; height: 44px; border-radius: 12px; }
+  .nav[data-scrolled] .nav__logo { max-width: 52px; margin-right: 6px; opacity: 1; visibility: visible; transition: max-width .5s var(--ease), margin-right .5s var(--ease), opacity .4s .1s, visibility 0s; }
+  .nav__links { display: contents; }
+  .nav a { text-decoration: none; font-weight: 600; font-size: 16px; padding: 10px 16px; border-radius: 999px; transition: background-color .25s, color .25s; }
+  .nav a:hover { background: rgba(20,32,74,.1); }
+  .nav .nav__cta { background: var(--navy); color: var(--yellow); margin-left: 8px; }
+  .nav .nav__cta:hover { background: var(--navy-2); }
+  .nav__cta--menu, .nav__tagline, .nav__toggle { display: none; }
+
+  .nav__toggle { position: relative; z-index: 31; align-items: center; gap: 8px; font: 700 16px/1 var(--font); color: var(--navy); background: var(--white); border: 0; padding: 12px 18px; border-radius: 999px; cursor: pointer; box-shadow: 0 10px 30px rgba(10,15,40,.3); transition: background-color .25s, box-shadow .35s; }
+  .nav__toggle:hover { background: var(--yellow-soft); }
+  .nav__toggle :global(svg) { width: 20px; height: 20px; }
+  .nav__toggle :global(.i-close) { display: none; }
+  .nav[data-open] .nav__toggle :global(.i-open) { display: none; }
+  .nav[data-open] .nav__toggle :global(.i-close) { display: block; }
+
+  @media (max-width: 1100px) {
+    :global(.js) .nav { position: fixed; z-index: 50; top: 30px; right: calc(var(--gutter) - 6px); padding: 6px; }
+    :global(.js) .nav__toggle { display: inline-flex; }
+    :global(.js) .nav[data-scrolled] { top: 14px; }
+    .nav[data-scrolled]:not([data-open]) .nav__toggle { background: var(--yellow); box-shadow: none; }
+    .nav[data-scrolled]:not([data-open]) .nav__toggle:hover { background: var(--yellow-soft); }
+    :global(.js) .nav__links { display: none; }
+    :global(html:not(.js)) .nav { flex-wrap: wrap; justify-content: flex-start; }
+    :global(html:not(.js)) .nav__links { display: flex; flex-wrap: wrap; }
+
+    :global(.js) .nav[data-open] .nav__links {
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 4px;
+      position: fixed; inset: 0; z-index: 30; padding: 96px var(--gutter) 48px; background: var(--yellow); overflow-y: auto;
+      animation: menu-in .5s var(--ease) both;
+    }
+    .nav[data-open] .nav__links a:not(.nav__cta) { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; letter-spacing: -.02em; line-height: .95; font-size: clamp(56px, 14vw, 96px); padding: 6px 0; border-radius: 6px; }
+    .nav[data-open] .nav__links a:not(.nav__cta):hover { background: none; color: var(--orange-deep); }
+    .nav[data-open] .nav__cta--menu { display: inline-flex; margin: 28px 0 0; font-weight: 700; font-size: 18px; padding: 18px 30px; }
+    .nav[data-open] .nav__tagline { display: block; margin: 40px 0 0; font-size: 28px; color: var(--orange-deep); rotate: -3deg; }
+    .nav[data-open] .nav__toggle { position: fixed; top: 24px; right: var(--gutter); }
+    .nav[data-open] .nav__cta--main { visibility: hidden; }
+  }
+  @media (max-width: 900px) {
+    /* Stacked hero: Inquire Now + Menu sit over the photo's top right, opposite the logo chip. */
+    :global(.js) .nav { top: 31px; }
+    .nav__cta--main { box-shadow: 0 10px 30px rgba(10,15,40,.3); }
+    .nav[data-scrolled] .nav__cta--main { box-shadow: none; }
+    :global(.js) .nav[data-scrolled] { top: 12px; }
+  }
+  @media (max-width: 560px) {
+    :global(.js) .nav { top: 24px; gap: 6px; }
+    :global(.js) .nav[data-scrolled] { top: 10px; }
+    .nav .nav__cta--main { padding: 12px 15px; margin-left: 0; font-size: 15px; }
+    .nav__toggle { padding: 12px 14px; font-size: 15px; }
+  }
+  @keyframes menu-in { from { opacity: 0; clip-path: circle(0% at 100% 0); } to { opacity: 1; clip-path: circle(150% at 100% 0); } }
+</style>

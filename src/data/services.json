@@ -1,0 +1,63 @@
+[
+  {
+    "id": "tickets",
+    "order": 1,
+    "name": "Domestic & international tickets",
+    "line": "Flights inside the Philippines and abroad, booked and ticketed for you."
+  },
+  {
+    "id": "hotels",
+    "order": 2,
+    "name": "Hotel reservations",
+    "line": "Tell us your budget and dates; we find and book the room."
+  },
+  {
+    "id": "tour-packages",
+    "order": 3,
+    "name": "Tour packages",
+    "line": "All-in Asia trips and escorted tours across Europe and the Middle East."
+  },
+  {
+    "id": "consultation",
+    "order": 4,
+    "name": "Travel consultation",
+    "line": "Not sure where to go yet? Ask Arnel and plan it out together."
+  },
+  {
+    "id": "group-tours",
+    "order": 5,
+    "name": "Group & company tours",
+    "line": "Barkada, family, office outing: send the headcount, we quote the group."
+  },
+  {
+    "id": "insurance",
+    "order": 6,
+    "name": "Travel insurance",
+    "line": "Add cover to your flights and tours in the same booking."
+  },
+  {
+    "id": "cruises",
+    "order": 7,
+    "name": "Cruise packages",
+    "line": "Sail packages like the Adora Magic City Cruise out of Manila."
+  },
+  {
+    "id": "da-nang",
+    "order": 8,
+    "name": "Da Nang airport transfers & private tours",
+    "line": "Skip the hassle of finding a ride in Vietnam. CheaPOX is directly connected with trusted Vietnam transportation providers, from airport pickup to private tours.",
+    "feature": {
+      "places": [
+        "Da Nang",
+        "Hoi An",
+        "Ba Na Hills"
+      ],
+      "points": [
+        "Airport transfers",
+        "Private car & van services",
+        "Custom tours",
+        "Professional drivers"
+      ]
+    }
+  }
+]

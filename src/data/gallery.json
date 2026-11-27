@@ -1,0 +1,66 @@
+[
+  {
+    "id": "venice",
+    "order": 1,
+    "place": "Venice",
+    "package": "amore-europe",
+    "src": "gallery/venice-rialto-bridge.jpg",
+    "alt": "A gondola gliding toward the Rialto Bridge on Venice's Grand Canal"
+  },
+  {
+    "id": "hong-kong-night",
+    "order": 2,
+    "place": "Hong Kong",
+    "package": "hong-kong",
+    "src": "gallery/hong-kong-night.jpg",
+    "alt": "Hong Kong's skyline and Victoria Harbour lit up at night, seen from above"
+  },
+  {
+    "id": "dubai-coast",
+    "order": 3,
+    "place": "Dubai",
+    "package": "dubai-abu-dhabi",
+    "src": "gallery/dubai-coast-aerial.jpg",
+    "alt": "Aerial view of the Burj Al Arab and the Palm Jumeirah off Dubai's coast"
+  },
+  {
+    "id": "galata",
+    "order": 4,
+    "place": "Istanbul",
+    "package": "turkiye",
+    "src": "gallery/istanbul-galata-tower.jpg",
+    "alt": "Galata Tower rising above the rooftops of Istanbul's Beyoğlu district"
+  },
+  {
+    "id": "blue-mosque",
+    "order": 5,
+    "place": "Istanbul",
+    "package": "turkiye",
+    "src": "gallery/istanbul-blue-mosque-day.jpg",
+    "alt": "The Blue Mosque's domes and six minarets in Istanbul under a bright evening sky"
+  },
+  {
+    "id": "dubai-skyline",
+    "order": 6,
+    "place": "Dubai",
+    "package": "dubai-abu-dhabi",
+    "src": "gallery/dubai-skyline-sunrise.jpg",
+    "alt": "Burj Khalifa and the Dubai skyline over a highway interchange at sunrise"
+  },
+  {
+    "id": "paris",
+    "order": 7,
+    "place": "Paris",
+    "package": "amore-europe",
+    "src": "gallery/paris-pont-alexandre.jpg",
+    "alt": "Lamps glowing along the Pont Alexandre III bridge over the Seine in Paris at dusk"
+  },
+  {
+    "id": "hong-kong-harbour",
+    "order": 8,
+    "place": "Hong Kong",
+    "package": "hong-kong",
+    "src": "gallery/hong-kong-harbour-day.jpg",
+    "alt": "A ferry crossing Victoria Harbour in front of Hong Kong's skyline on a hazy day"
+  }
+]

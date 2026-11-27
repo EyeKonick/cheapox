@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Only the hero's type is preloaded: latin plus latin-ext (the ₱ sign). -->
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/bricolage-grotesque-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+  <SEO />
+  <script is:inline>document.documentElement.classList.add('js');</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <slot />
+  <script is:inline>
+    // Hanging tags ([data-swing="<rest angle>"]) swing once per hover, like a pendulum settling.
+    // A swing always plays to the end: hovering again mid-swing (or during the hero tag's entrance) is ignored,
+    // so it never snaps back or restarts.
+    (() => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const ease = 'cubic-bezier(.37, 0, .63, 1)';
+      document.querySelectorAll('[data-swing]').forEach((el) => {
+        const r = Number(el.dataset.swing);
+        const frames = [0, 10, -7, 5, -2.5, 0].map((d, i, a) => ({ rotate: `${r + d}deg`, offset: i / (a.length - 1), easing: ease }));
+        el.addEventListener('pointerenter', (e) => {
+          if (e.pointerType !== 'mouse') return;
+          if (el.getAnimations().some((a) => a.playState === 'running')) return;
+          el.animate(frames, { duration: 1700 });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+---
+// Four tilted step tags (the hero's punched price-tag shape, in yellow) + a navy payments strip. Card names are text only.
+import { getSite } from '../lib/site';
+const site = await getSite();
+const h = site.howToBook;
+const tilts = ['-3deg', '2deg', '-1.5deg', '2.5deg'];
+---
+<section class="book" id="how-to-book" aria-labelledby="hb-title">
+  <div class="sec-head">
+    <h2 class="display" id="hb-title">{h.titleTop}<br><span>{h.titleBottom}</span></h2>
+  </div>
+
+  <ol class="steps">
+    {h.steps.map((step, i) => (
+      <li class="step" style={`--tilt: ${tilts[i]}`}>
+        <div class="step__tag">
+        <span class="step__num display" aria-hidden="true">{i + 1}</span>
+        <h3 class="display"><span class="sr-only">Step {i + 1}: </span>{step.title}</h3>
+        <p>{step.text}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <div class="pay">
+    <p class="pay__label display">{h.cardsLabel}</p>
+    <ul class="pay__cards" aria-label="Accepted credit cards">
+      {h.cards.map((c) => <li>{c}</li>)}
+    </ul>
+    <p class="pay__note">{h.installmentNote}</p>
+  </div>
+</section>
+
+<style>
+  .book { background: var(--white); padding: var(--section-top) var(--gutter) var(--section-bottom); }
+  .book h2 span { color: var(--orange); }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--grid-gap); position: relative; }
+  /* the string the tags hang from */
+  .steps::before { content: ""; position: absolute; left: -2%; right: -2%; top: 0; border-top: 3px dashed var(--navy); opacity: .25; }
+  /* The list item stays put as the hover target; only the tag inside pivots where the string meets it. */
+  .step { position: relative; margin-top: 56px; }
+  .step__tag { position: relative; height: 100%; padding: 64px 28px 34px; background: var(--yellow); color: var(--navy); border-radius: 18px 18px 26px 26px;
+    clip-path: polygon(18% 0, 82% 0, 100% 12%, 100% 100%, 0 100%, 0 12%);
+    rotate: var(--tilt); transform-origin: 50% 0; transition: rotate .9s var(--ease); }
+  .step:hover .step__tag { rotate: 0deg; }
+  .step__tag::before { content: ""; position: absolute; top: 18px; left: 50%; width: 20px; height: 20px; translate: -50% 0; border-radius: 50%; background: var(--white); box-shadow: inset 0 0 0 4px var(--navy); }
+  .step::after { content: ""; position: absolute; left: 50%; top: -56px; width: 3px; height: 56px; translate: -50% 0; background: var(--navy); border-radius: 2px; opacity: .5; }
+  .step__num { display: block; font-size: 112px; line-height: .8; color: var(--orange-deep); margin-bottom: 14px; }
+  .step h3 { font-size: 46px; margin: 0 0 12px; }
+  .step p { margin: 0; font-size: 16.5px; line-height: 1.5; }
+  .step:nth-child(2) .step__tag { background: var(--orange); }
+  .step:nth-child(2) .step__num { color: var(--white); }
+  .step:nth-child(4) .step__tag { background: var(--sky); }
+
+  .pay { margin-top: 88px; background: var(--navy); color: var(--white); border-radius: 32px; padding: 36px 44px; display: grid; grid-template-columns: auto 1fr; gap: 18px 40px; align-items: center; }
+  .pay__label { margin: 0; font-size: 40px; color: var(--yellow); max-width: 8em; grid-row: span 2; }
+  .pay__cards { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .pay__cards li { font-weight: 700; font-size: 17px; padding: 10px 20px; border-radius: var(--r-pill); border: 2.5px solid var(--yellow); color: var(--white); }
+  .pay__note { margin: 0; font-size: 16px; color: var(--on-navy-soft); }
+
+  @media (max-width: 1100px) {
+    .steps { grid-template-columns: repeat(2, 1fr); row-gap: 24px; }
+    .steps::before { display: none; }
+    .step::after { display: none; }
+    .step { margin-top: 0; }
+  }
+  @media (max-width: 900px) {
+    .pay { grid-template-columns: 1fr; padding: 32px; }
+    .pay__label { grid-row: auto; max-width: none; font-size: 36px; }
+  }
+  @media (max-width: 560px) {
+    .steps { grid-template-columns: 1fr; row-gap: 20px; }
+    .step__tag { padding: 60px 24px 30px; }
+    .step__num { font-size: 88px; }
+    .step h3 { font-size: 40px; }
+    .pay { padding: 28px 22px; margin-top: 64px; }
+    .pay__cards li { font-size: 15px; padding: 8px 16px; }
+  }
+</style>

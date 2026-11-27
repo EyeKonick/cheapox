@@ -1,0 +1,149 @@
+---
+// One package card. Three forms share the approved card shell (white card, round yellow sticker, dashed "What's included"):
+//  - photo:       the approved card, unchanged
+//  - typographic: no real photo yet, so a bold colour panel carries the name and stops instead of an image
+//  - cruise:      a wide boarding-pass card with the route drawn as stops
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { photo } from '../lib/images';
+import { formatPrice, priceUnit, type Package } from '../lib/site';
+
+interface Props { pkg: Package; inquireHref: string; tone?: 'navy' | 'sky'; panel: { coversLabel: string }; itineraryHref?: string }
+const { pkg, inquireHref, tone = 'navy', panel, itineraryHref } = Astro.props;
+const p = pkg.data;
+const price = formatPrice(p.currency, p.price);
+const unit = priceUnit(p);
+const titleId = `pkg-${pkg.id}-title`;
+const isCruise = p.kind === 'cruise';
+// Longest unbreakable chunk of the name sets the panel title size so it never overflows.
+const longest = Math.max(...p.name.split(/[\s–-]+/).map((w) => w.length));
+const nameParts = p.name.split('–');
+---
+<article class:list={['card', { 'card--cruise': isCruise, 'card--type': !p.photo && !isCruise }]} id={`pkg-${pkg.id}`} aria-labelledby={titleId}>
+  {isCruise && <p class="stamp">{p.visa}</p>}
+  {isCruise ? (
+    <div class="pass">
+      <p class="pass__top"><Icon name="ship" /> {p.departs} · {p.duration}</p>
+      <ol class="route" aria-label="Route">
+        {p.stops?.map((s) => <li>{s}</li>)}
+      </ol>
+      <p class="sticker"><small>from</small><b>{price}</b><i>{unit}</i></p>
+    </div>
+  ) : p.photo ? (
+    <div class="card__media">
+      <Picture
+        src={photo(p.photo.src)}
+        alt={p.photo.alt}
+        formats={['webp']}
+        widths={[320, 480, 640, 900]}
+        sizes="(max-width: 560px) calc(100vw - 64px), (max-width: 900px) 45vw, (max-width: 1279px) 30vw, 22vw"
+        style={p.photo.position ? `object-position: ${p.photo.position}` : undefined}
+        quality={74}
+      />
+      <p class="sticker"><small>from</small><b>{price}</b><i>{unit}</i></p>
+    </div>
+  ) : (
+    <div class:list={['card__media', 'panel', `panel--${tone}`]} style={`--len: ${longest}`}>
+      <p class="panel__pill">{p.departs ?? 'All-in Asia'}{p.duration && ` · ${p.duration}`}</p>
+      <p class="panel__name display" aria-hidden="true">{nameParts.map((part, i) => <>{i > 0 && <>–<wbr /></>}{part}</>)}</p>
+      {p.stops && <div class="panel__list"><p class="panel__cap">{panel.coversLabel}</p><ul>{p.stops.map((x) => <li>{x}</li>)}</ul></div>}
+      <p class="sticker"><small>from</small><b>{price}</b><i>{unit}</i></p>
+    </div>
+  )}
+  <div class="card__body">
+    <h4 class="display" id={titleId}>{p.name}</h4>
+    {p.subtitle && <p class="card__sub">{p.subtitle}</p>}
+    {p.photo && p.stops && <p class="card__stops"><span>{panel.coversLabel}</span> {p.stops.join(' · ')}</p>}
+    <p>{p.blurb}</p>
+    <p class="incl"><b>What’s included:</b> {p.included}</p>
+    <p class="card__ctas">
+      <a class="card__cta" href={inquireHref}>Inquire<span class="sr-only"> about {p.name}</span> <Icon name="arrow" strokeWidth={2.2} /></a>
+      {itineraryHref && <a class="card__cta card__cta--days" href={itineraryHref}>Day by day<span class="sr-only">: {p.name} itinerary</span></a>}
+    </p>
+  </div>
+</article>
+
+<style>
+  /* approved card */
+  .card { position: relative; isolation: isolate; background: var(--white); border-radius: var(--r-card); padding: 12px 12px 28px; color: var(--navy); box-shadow: 0 24px 50px rgba(120,40,0,.25); transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+  .card:nth-child(even) { margin-top: var(--stagger); }
+  .card:hover { transform: translateY(-8px) rotate(-.6deg); box-shadow: 0 34px 60px rgba(120,40,0,.3); }
+  /* Invisible hover pad below and beside the card: when the card lifts it still sits under the cursor,
+     so hovering near the bottom edge no longer flickers between hover and rest. */
+  .card::after { content: ""; position: absolute; inset: -6px -8px -16px; z-index: -1; border-radius: inherit; }
+  .card__media { position: relative; aspect-ratio: 4 / 5; }
+  .card__media :global(picture) { display: contents; }
+  .card__media :global(img) { width: 100%; height: 100%; object-fit: cover; border-radius: var(--r-media); }
+  .sticker { position: absolute; right: -10px; bottom: -26px; width: 132px; height: 132px; border-radius: 50%; background: var(--yellow); color: var(--navy); display: grid; place-content: center; text-align: center; rotate: 9deg; box-shadow: 0 10px 22px rgba(20,32,74,.22); transition: rotate .5s var(--spring); margin: 0; }
+  .card:hover .sticker { rotate: -4deg; }
+  .sticker::after { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed rgba(20,32,74,.45); }
+  .sticker small { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .sticker b { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: var(--fs-sticker); line-height: .95; letter-spacing: -.02em; }
+  .sticker i { font-style: normal; font-size: 12.5px; font-weight: 600; }
+  .card__body { padding: 40px 14px 0; }
+  .card h4 { font-size: var(--fs-card-title); margin: 0 0 12px; }
+  .card p { margin: 0; font-size: var(--fs-card); line-height: 1.5; }
+  .incl { margin-top: 18px !important; padding-top: 16px; border-top: 2px dashed rgba(20,32,74,.2); font-size: var(--fs-small) !important; color: var(--ink-soft); }
+  .incl b { color: var(--navy); font-weight: 700; }
+
+  /* added: inquire link, same underline language as the hero's quick links */
+  .card__cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-weight: 700; font-size: 16px; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: var(--orange); transition: gap .35s var(--spring); }
+  .card__cta:hover { gap: 12px; }
+  .card__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 0 22px; }
+  .card__cta--days { text-decoration-color: var(--sky); }
+  .card__cta :global(svg) { width: 18px; height: 18px; }
+  .card__sub { margin: -4px 0 10px !important; font-weight: 700; color: var(--orange-deep); }
+  .card__stops { margin: 0 0 10px !important; font-size: var(--fs-small) !important; font-weight: 700; line-height: 1.4 !important; }
+  .card__stops span { display: inline-block; margin-right: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; padding: 2px 9px; border-radius: var(--r-pill); background: var(--navy); color: var(--yellow); vertical-align: 1px; }
+
+  /* typographic card: a colour panel where the photo would be */
+  .panel { container-type: inline-size; display: flex; flex-direction: column; justify-content: flex-start; gap: 14px; padding: 22px 22px 30px; border-radius: var(--r-media); }
+  .panel::before { content: ""; position: absolute; inset: 9px; border-radius: 12px; border: 2px dashed currentColor; opacity: .3; pointer-events: none; }
+  .panel--navy { background: var(--navy); color: var(--yellow); }
+  .panel--sky { background: var(--sky); color: var(--navy); }
+  .panel__pill { align-self: flex-start; font-size: 13px !important; font-weight: 700; padding: 4px 12px; border-radius: var(--r-pill); background: var(--white); color: var(--navy); }
+  .panel__list { margin-top: auto; max-width: calc(100% - 118px); }
+  .panel__cap { font-size: 12px !important; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; opacity: .85; margin-bottom: 6px !important; }
+  .panel__list ul { list-style: none; margin: 0; padding: 0; }
+  .panel__list li { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 21px; line-height: 1.02; letter-spacing: -.005em; }
+  .panel--navy .panel__list { color: var(--white); }
+  .panel:not(:has(.panel__list)) .panel__name { margin-top: auto !important; padding-bottom: 96px; }
+  .panel__name { margin-top: 12px !important; font-size: min(92px, 100cqi / (var(--len) * .54)) !important; line-height: .86 !important; }
+  .card--type .card__body h4 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* cruise: boarding pass spanning two columns */
+  .card--cruise { position: relative; grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; padding: 12px; }
+  .pass { position: relative; background: var(--navy); color: var(--white); border-radius: var(--r-media); padding: 26px 26px 30px; display: flex; flex-direction: column; min-height: 100%; }
+  .pass__top { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; font-size: 13px !important; font-weight: 700; padding: 5px 12px; border-radius: var(--r-pill); background: var(--yellow); color: var(--navy); }
+  .pass__top :global(svg) { width: 18px; height: 18px; }
+  .route { list-style: none; margin: 32px 0 0; padding: 0 0 0 30px; position: relative; flex: 1; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+  .route::before { content: ""; position: absolute; left: 8px; top: 14px; bottom: 14px; border-left: 2.5px dashed rgba(255,198,41,.6); }
+  .route li { position: relative; font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; letter-spacing: -.01em; line-height: .95; font-size: 40px; color: var(--yellow); }
+  .route li::before { content: ""; position: absolute; left: -30px; top: 50%; width: 18px; height: 18px; translate: 0 -50%; border-radius: 50%; background: var(--navy); box-shadow: inset 0 0 0 4px var(--orange); }
+  .route li:first-child, .route li:last-child { color: var(--white); }
+  .stamp { position: absolute; z-index: 2; bottom: -24px; right: -16px; width: 112px; height: 112px; border-radius: 50%; display: grid; place-content: center; text-align: center; padding: 14px; background: var(--navy); color: var(--yellow); font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 19px !important; line-height: .95 !important; rotate: -12deg; box-shadow: 0 10px 22px rgba(10,15,40,.35); }
+  .stamp::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 2px dashed rgba(255,198,41,.6); }
+  .card--cruise .card__body { padding: 28px 18px 16px 30px; display: flex; flex-direction: column; }
+  .card--cruise .card__ctas { margin-top: auto !important; padding-top: 18px; }
+  .card--cruise .card__cta { margin-top: 0; }
+  .card--cruise:hover { transform: translateY(-8px) rotate(-.3deg); }
+
+  @media (max-width: 1279px) {
+    .card--cruise { grid-column: 1 / -1; }
+  }
+  @media (max-width: 680px) {
+    .card--cruise { grid-template-columns: 1fr; }
+    .pass { min-height: 0; }
+    .route { margin-top: 28px; gap: 18px; }
+    .route li { font-size: 40px; }
+    .card--cruise .card__body { padding: 40px 14px 12px; }
+  }
+  @media (max-width: 560px) {
+    .card:nth-child(even) { margin-top: 0; }
+    .sticker { width: 120px; height: 120px; right: -6px; }
+    .sticker b { font-size: 31px; }
+    .stamp { width: 96px; height: 96px; font-size: 16px !important; right: -2px; }
+    .card__media { aspect-ratio: 5 / 4; }
+    .panel { aspect-ratio: auto; min-height: 280px; }
+  }
+</style>

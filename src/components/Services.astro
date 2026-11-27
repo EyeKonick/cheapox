@@ -1,0 +1,88 @@
+---
+// Navy services board: big typographic rows (no icon cards) + an orange Da Nang ground-transport spotlight.
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+import { getSite } from '../lib/site';
+
+const site = await getSite();
+const s = site.servicesSection;
+const all = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const list = all.filter((x) => !x.data.feature);
+const spot = all.find((x) => x.data.feature);
+---
+<section class="services" id="services" aria-labelledby="sv-title">
+  <div class="sec-head">
+    <h2 class="display" id="sv-title">{s.titleTop}<br><span>{s.titleBottom}</span></h2>
+    <p>{s.intro}</p>
+  </div>
+
+  <div class="services__grid">
+    <ul class="board">
+      {list.map((x) => (
+        <li>
+          <h3 class="display">{x.data.name}</h3>
+          <p>{x.data.line}</p>
+        </li>
+      ))}
+    </ul>
+
+    {spot && spot.data.feature && (
+      <aside class="spot" aria-labelledby="sv-spot">
+        <div class="spot__card">
+        <h3 class="display" id="sv-spot">{spot.data.name}</h3>
+        <ul class="spot__places" aria-label="Places covered">
+          {spot.data.feature.places.map((pl) => <li class="display">{pl}</li>)}
+        </ul>
+        <p class="spot__line">{spot.data.line}</p>
+        <ul class="spot__points">
+          {spot.data.feature.points.map((pt) => <li><Icon name="check" strokeWidth={2.6} />{pt}</li>)}
+        </ul>
+        <a class="btn btn--primary" href={site.contact.facebookUrl}>Message us about Da Nang <Icon name="arrow" strokeWidth={2.2} /></a>
+        </div>
+      </aside>
+    )}
+  </div>
+</section>
+
+<style>
+  .services { background: var(--navy); color: var(--white); padding: var(--section-top) var(--gutter) var(--section-bottom); }
+  .services h2 { color: var(--white); }
+  .services h2 span { color: var(--yellow); }
+  .services .sec-head p { color: var(--on-navy-soft); }
+  .services__grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: 72px; align-items: start; }
+
+  .board { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
+  .board li { padding: 26px 0 28px; border-top: 2.5px dashed rgba(255,255,255,.22); }
+  .board h3 { margin: 0 0 10px; font-size: 40px; color: var(--yellow); transition: translate .4s var(--spring); }
+  .board li:hover h3 { translate: 6px 0; }
+  .board p { margin: 0; font-size: 16.5px; line-height: 1.5; color: var(--on-navy-soft); max-width: 30em; }
+
+  /* .spot is the steady hover target; the orange card inside does the tilting, so it never slips out from under the cursor. */
+  .spot__card { position: relative; background: var(--orange); color: var(--navy); border-radius: 32px; padding: 48px 40px 40px; rotate: 1.5deg; box-shadow: 0 30px 60px rgba(5,10,30,.45); transition: rotate .8s var(--ease); }
+  .spot:hover .spot__card { rotate: 0deg; }
+  .spot h3 { font-size: 52px; margin: 0 0 22px; color: var(--navy); }
+  .spot__places { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .spot__places li { font-size: 30px; background: var(--navy); color: var(--yellow); padding: 8px 16px 6px; border-radius: 14px; }
+  .spot__places li:nth-child(2) { rotate: -3deg; background: var(--white); color: var(--navy); }
+  .spot__places li:nth-child(3) { rotate: 2deg; }
+  .spot__line { margin: 0 0 20px; font-size: 17px; font-weight: 600; line-height: 1.5; }
+  .spot__points { list-style: none; margin: 0 0 32px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; font-weight: 700; font-size: 16px; }
+  .spot__points li { display: flex; gap: 8px; align-items: flex-start; }
+  .spot__points :global(svg) { width: 18px; height: 18px; flex: none; margin-top: 3px; }
+
+  @media (max-width: 1279px) {
+    .services__grid { grid-template-columns: 1fr; gap: 80px; }
+    .spot { max-width: 720px; }
+  }
+  @media (max-width: 900px) {
+    .board { grid-template-columns: 1fr; }
+    .board h3 { font-size: 36px; }
+  }
+  @media (max-width: 560px) {
+    .spot__card { padding: 44px 24px 28px; rotate: .8deg; }
+    .spot h3 { font-size: 40px; }
+    .spot__places li { font-size: 24px; }
+    .spot__points { grid-template-columns: 1fr; }
+    .spot .btn { width: 100%; justify-content: center; }
+  }
+</style>

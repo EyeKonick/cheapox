@@ -1,0 +1,83 @@
+---
+// Traveler quotes as postcards: a stamp for the trip, a postmark for the town, the quote on the message side.
+// Entries marked `sample: true` in testimonials.json are placeholder copy for the proposal; swap in real reviews before launch.
+import { getCollection } from 'astro:content';
+import { getSite } from '../lib/site';
+
+const site = await getSite();
+const s = site.testimonialsSection;
+const all = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+const items = all;
+const tilts = ['-2deg', '1.5deg', '-1deg', '2deg', '-1.5deg', '1deg'];
+---
+{items.length > 0 && (
+  <section class="voices" id="testimonials" aria-labelledby="tm-title">
+    <div class="sec-head">
+      <h2 class="display" id="tm-title">{s.titleTop}<br><span>{s.titleBottom}</span></h2>
+      <p>{s.intro}</p>
+    </div>
+
+    <ul class="cards">
+      {items.map((x, i) => (
+        <li class="post" style={`--tilt: ${tilts[i % tilts.length]}`}>
+          <figure class="card">
+            <p class="stamp" aria-hidden="true"><span>{x.data.trip}</span></p>
+            <p class="postmark" aria-hidden="true">{x.data.from}</p>
+            <blockquote><p>{x.data.quote}</p></blockquote>
+            <figcaption>
+              <b class="display">{x.data.name}</b>
+              <span>{[x.data.group, x.data.from].filter(Boolean).join(' · ')}</span>
+              <span class="trip">Trip: {x.data.trip}</span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+
+<style>
+  .voices { background: var(--orange); color: var(--navy); padding: var(--section-top) var(--gutter) var(--section-bottom); }
+  .voices h2 { color: var(--white); }
+  .voices h2 span { color: var(--navy); }
+  .voices .sec-head p { color: var(--navy); }
+
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px var(--grid-gap); align-items: start; }
+  .post:nth-child(3n+2) { margin-top: 48px; }
+
+  /* The list item is the steady hover target; only the postcard inside tilts. */
+  .card { position: relative; margin: 0; background: var(--white); border-radius: 22px; padding: 30px 28px 26px; box-shadow: 0 24px 50px rgba(120,40,0,.25);
+    rotate: var(--tilt); transition: rotate .7s var(--ease), translate .7s var(--ease), box-shadow .7s var(--ease); }
+  .post:hover .card { rotate: 0deg; translate: 0 -6px; box-shadow: 0 32px 60px rgba(120,40,0,.3); }
+
+  /* perforated stamp: a scalloped edge cut with a radial-gradient mask */
+  /* Perforated stamp: a white sheet with transparent holes tiled across it; the coloured centre covers the
+     middle holes, so only the half-holes along the edge show as the scalloped perforation. */
+  .stamp { position: absolute; top: -18px; right: 22px; margin: 0; width: 96px; height: 112px; padding: 8px; rotate: 6deg;
+    background: radial-gradient(circle at 50% 50%, #0000 4px, var(--white) 4.5px) -6px -6px / 12px 12px;
+    filter: drop-shadow(0 6px 8px rgba(20,32,74,.28)); }
+  .stamp span { display: grid; place-content: center; height: 100%; padding: 6px; text-align: center; background: var(--navy); color: var(--yellow); font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 17px; line-height: .95; letter-spacing: -.01em; overflow-wrap: anywhere; }
+  .post:nth-child(3n+2) .stamp span { background: var(--sky); color: var(--navy); }
+  .post:nth-child(3n) .stamp span { background: var(--yellow); color: var(--navy); }
+  .postmark { position: absolute; top: 46px; right: 92px; margin: 0; width: 82px; height: 82px; display: grid; place-content: center; padding: 10px; text-align: center; border-radius: 50%;
+    border: 2px solid rgba(168,56,0,.55); color: rgba(168,56,0,.75); font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; line-height: 1.15; rotate: -14deg; pointer-events: none; }
+
+  blockquote { margin: 92px 0 0; position: relative; }
+  blockquote::before { content: "“"; position: absolute; left: -6px; top: -54px; font-weight: 800; font-size: 96px; line-height: 1; color: var(--orange); }
+  blockquote p { margin: 0; font-size: 18.5px; font-weight: 600; line-height: 1.5; }
+  figcaption { margin-top: 44px; display: grid; gap: 2px; }
+  figcaption b { font-size: 30px; }
+  figcaption span { font-size: var(--fs-small); color: var(--ink-soft); font-weight: 600; }
+  figcaption .trip { justify-self: start; margin-top: 8px; font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: var(--r-pill); background: var(--yellow); color: var(--navy); }
+
+  @media (max-width: 1100px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .post:nth-child(3n+2) { margin-top: 0; }
+    .post:nth-child(even) { margin-top: 40px; }
+  }
+  @media (max-width: 680px) {
+    .cards { grid-template-columns: 1fr; gap: 40px; padding: 18px 4px 0; }
+    .post:nth-child(even) { margin-top: 0; }
+    .card { rotate: calc(var(--tilt) * .5); }
+  }
+</style>

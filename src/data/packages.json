@@ -1,0 +1,280 @@
+[
+  {
+    "id": "hong-kong",
+    "order": 1,
+    "group": "asia",
+    "name": "Hong Kong",
+    "currency": "PHP",
+    "price": 19999,
+    "blurb": "Harbour lights, night markets and dim sum runs, a quick flight from Manila.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers.",
+    "photo": {
+      "src": "packages/hong-kong-peak-sunset.jpg",
+      "alt": "Hong Kong skyline glowing at sunset, seen from Victoria Peak"
+    }
+  },
+  {
+    "id": "da-nang",
+    "order": 2,
+    "group": "asia",
+    "name": "Da Nang",
+    "currency": "PHP",
+    "price": 24999,
+    "blurb": "Base camp for Ba Na Hills, Hoi An Old Town and My Khe Beach, with flights and hotel in one price.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "packages/danang-golden-bridge.jpg",
+      "alt": "Visitors crossing the Golden Bridge held up by giant stone hands at Ba Na Hills, Da Nang",
+      "position": "70% 50%"
+    }
+  },
+  {
+    "id": "shanghai",
+    "order": 3,
+    "group": "asia",
+    "name": "Shanghai",
+    "currency": "PHP",
+    "price": 26999,
+    "blurb": "Shanghai, all-in: flights, hotel, tours and transfers sorted before you pack.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "packages/shanghai-lujiazui-bund.jpg",
+      "alt": "The Lujiazui skyline and Oriental Pearl Tower reflected in the Huangpu River at dawn, seen from the Bund",
+      "position": "35% 50%"
+    }
+  },
+  {
+    "id": "bangkok",
+    "order": 4,
+    "group": "asia",
+    "name": "Bangkok",
+    "currency": "PHP",
+    "price": 27999,
+    "blurb": "Thailand's capital, all-in: flights, hotel, tours and transfers in one price.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "hero/bangkok-yaowarat.jpg",
+      "alt": "Tuk-tuks parked on Yaowarat Road in Bangkok's Chinatown at night",
+      "position": "30% 70%"
+    }
+  },
+  {
+    "id": "indonesia",
+    "order": 5,
+    "group": "asia",
+    "name": "Indonesia",
+    "currency": "PHP",
+    "price": 28999,
+    "blurb": "Indonesia, all-in: we book the flights, the hotel and the tours, you show up.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "packages/bali-taman-ayun.jpg",
+      "alt": "Tiered meru shrines of Taman Ayun Temple in Bali under a bright sky",
+      "position": "55% 50%"
+    }
+  },
+  {
+    "id": "hanoi-sapa",
+    "order": 6,
+    "group": "asia",
+    "name": "Hanoi–Sapa",
+    "currency": "PHP",
+    "price": 30999,
+    "blurb": "Two sides of northern Vietnam in one trip: Hanoi and Sapa, all-in.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "stops": [
+      "Hanoi",
+      "Sapa"
+    ],
+    "photo": {
+      "src": "packages/sapa-rice-terraces.jpg",
+      "alt": "Aerial view of green rice terraces and a mountain village near Sapa, northern Vietnam"
+    }
+  },
+  {
+    "id": "taiwan",
+    "order": 7,
+    "group": "asia",
+    "name": "Taiwan",
+    "currency": "PHP",
+    "price": 34999,
+    "blurb": "Taiwan, all-in: flights, hotel, tours and transfers handled in one booking.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "packages/taipei-101-elephant-mountain.jpg",
+      "alt": "Taipei 101 rising over the city skyline, seen from Elephant Mountain",
+      "position": "40% 50%"
+    }
+  },
+  {
+    "id": "korea",
+    "order": 8,
+    "group": "asia",
+    "name": "Korea",
+    "currency": "PHP",
+    "price": 35999,
+    "blurb": "Korea, all-in: one price for the flights, the hotel, the tours and the rides.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "packages/seoul-gyeongbokgung-snow.jpg",
+      "alt": "A red and green painted hall of Gyeongbokgung Palace in Seoul with snow on its tiled roof",
+      "position": "35% 50%"
+    }
+  },
+  {
+    "id": "japan",
+    "order": 9,
+    "group": "asia",
+    "name": "Japan",
+    "currency": "PHP",
+    "price": 55999,
+    "blurb": "Japan, all-in: flights, hotel, tours and transfers without the planning headache.",
+    "included": "roundtrip airfare, hotel with breakfast, tours and airport transfers, air-conditioned vehicle with driver.",
+    "photo": {
+      "src": "packages/kyoto-yasaka-lane.jpg",
+      "alt": "Two women in kimono walking up a lantern-lit Kyoto lane toward the Yasaka pagoda",
+      "position": "55% 50%"
+    }
+  },
+  {
+    "id": "dubai-abu-dhabi",
+    "order": 10,
+    "group": "longhaul",
+    "name": "Dubai & Abu Dhabi",
+    "currency": "USD",
+    "price": 1388,
+    "duration": "7 days",
+    "departs": "Out Manila",
+    "blurb": "Seven days of desert, skyline and the Grand Mosque, with a Filipino escort along.",
+    "included": "roundtrip airfare, hotel, tours and meals as specified, private coach.",
+    "photo": {
+      "src": "packages/dubai-burj-al-arab.jpg",
+      "alt": "The sail-shaped Burj Al Arab hotel rising behind a Dubai beach"
+    }
+  },
+  {
+    "id": "adora-magic-city-cruise",
+    "order": 11,
+    "group": "longhaul",
+    "kind": "cruise",
+    "name": "Adora Magic City Cruise",
+    "currency": "USD",
+    "price": 1458,
+    "duration": "5D4N",
+    "departs": "Out Manila",
+    "visa": "China & Jeju visa free",
+    "stops": [
+      "Shanghai",
+      "Jeju",
+      "Busan",
+      "Shanghai"
+    ],
+    "blurb": "Four nights at sea from Shanghai to Jeju and Busan and back, with meals and shows on board.",
+    "included": "cruise accommodation, all meals onboard, port charges and taxes, entertainment shows, travel insurance."
+  },
+  {
+    "id": "turkiye",
+    "order": 12,
+    "group": "longhaul",
+    "name": "Türkiye",
+    "currency": "USD",
+    "price": 1888,
+    "duration": "11 days",
+    "departs": "Out Manila, Davao or Cebu",
+    "blurb": "Istanbul’s mosques to Cappadocia’s fairy chimneys, Pamukkale on the way.",
+    "included": "roundtrip airfare, hotels, guided tours and private coach transfers.",
+    "photo": {
+      "src": "packages/istanbul-blue-mosque-dusk.jpg",
+      "alt": "Minarets and domes of Istanbul's Blue Mosque under a pink evening sky"
+    }
+  },
+  {
+    "id": "amore-europe",
+    "order": 13,
+    "group": "longhaul",
+    "name": "Amore+ Europe",
+    "currency": "USD",
+    "price": 2888,
+    "duration": "11 days",
+    "departs": "Out Manila, Davao, Clark or Cebu",
+    "blurb": "Seven countries in one go, from Paris and the Swiss Alps to Rome.",
+    "included": "roundtrip airfare, hotels, daily breakfast, tours and private coach.",
+    "photo": {
+      "src": "packages/rome-colosseum-dusk.jpg",
+      "alt": "The Colosseum in Rome lit up at dusk"
+    }
+  },
+  {
+    "id": "bienvenidos",
+    "order": 14,
+    "group": "longhaul",
+    "name": "Bienvenidos",
+    "subtitle": "Spain & Portugal",
+    "currency": "USD",
+    "price": 2888,
+    "duration": "11 days",
+    "departs": "Out Manila",
+    "stops": [
+      "Lisbon",
+      "Fatima",
+      "Porto",
+      "Madrid",
+      "Barcelona"
+    ],
+    "blurb": "Fatima’s candlelight procession, port wine in Porto, a flamenco night in Madrid and the Sagrada Familia.",
+    "included": "roundtrip airfare with check-in baggage, 8 nights hotel, daily breakfast, meals as specified, private coach, European tour manager and Filipino tour escort.",
+    "photo": {
+      "src": "packages/lisbon-yellow-tram.jpg",
+      "alt": "A yellow vintage tram on a cobbled street in Lisbon, Portugal",
+      "position": "60% 50%"
+    }
+  },
+  {
+    "id": "vikings",
+    "order": 15,
+    "group": "longhaul",
+    "name": "Vikings",
+    "subtitle": "Scandinavia & Baltics",
+    "currency": "USD",
+    "price": 3488,
+    "duration": "13 days",
+    "departs": "Out Manila",
+    "stops": [
+      "Denmark",
+      "Norway",
+      "Sweden",
+      "Finland",
+      "Estonia",
+      "Latvia",
+      "Lithuania"
+    ],
+    "blurb": "Seven countries via Turkish Airlines, with overnight cruises on DFDS Seaways and Silja Line. Group tour, minimum 20 pax.",
+    "included": "roundtrip airfare with check-in baggage, overnight cruises, tours and meals as specified, entrance fees per itinerary, private coach, European tour manager and Filipino tour escort.",
+    "photo": {
+      "src": "packages/lofoten-henningsvaer.jpg",
+      "alt": "Aerial view of the fishing village of Henningsvær spread across small islands in Lofoten, Norway"
+    }
+  },
+  {
+    "id": "iceland-scandinavia",
+    "order": 16,
+    "group": "longhaul",
+    "name": "Iceland & Scandinavia",
+    "currency": "USD",
+    "price": 5288,
+    "duration": "12 days",
+    "departs": "Out Manila",
+    "stops": [
+      "Denmark",
+      "Norway",
+      "Iceland",
+      "Sweden"
+    ],
+    "blurb": "The Golden Circle, the Blue Lagoon, a crystal ice cave tour and a night out hunting the northern lights.",
+    "included": "roundtrip airfare plus a domestic flight via Icelandair, 8 nights hotel, an overnight cruise, daily breakfast, lunch and dinner as specified, private coach, sightseeing and entrances as specified, European tour manager and Filipino tour escort.",
+    "photo": {
+      "src": "packages/reykjavik-lighthouse-aurora.jpg",
+      "alt": "Green northern lights over the white Grótta lighthouse near Reykjavík, Iceland"
+    }
+  }
+]

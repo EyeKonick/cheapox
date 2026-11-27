@@ -1,0 +1,234 @@
+[
+  {
+    "id": "chengdu-dagu-glacier",
+    "order": 1,
+    "name": "Chengdu & Dagu Glacier",
+    "duration": "5D4N",
+    "currency": "PHP",
+    "price": 32000,
+    "departs": "Out Manila via Air China",
+    "countries": ["China"],
+    "note": "Group visa applicable. The tour includes shopping stops (Chinese medicine, jewelry and latex).",
+    "photo": {
+      "src": "tours/chengdu-panda-bamboo.jpg",
+      "alt": "A giant panda eating bamboo in a leafy enclosure in Chengdu",
+      "position": "30% 75%"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila", "Chengdu"], "meals": "Dinner", "highlights": ["Meet your guide at Chengdu airport", "Kuanzhai Alleys", "Panda House and Dujiangyan Panda Park"] },
+      { "day": "2", "route": ["Maoxian"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Dagu Glacier, with battery car and cable car", "BBQ buffet dinner"], "optional": "Mini Jiuzhaigou (Songpinggou)" },
+      { "day": "3", "route": ["Maoxian", "Dujiangyan"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Guanxian Ancient City", "Dujiangyan Cultural Center"], "optional": "Ancient Qiang Village and a face-changing show" },
+      { "day": "4", "route": ["Chengdu"], "meals": "Breakfast", "highlights": ["Jinli Ancient Street", "Chunxi Road and Taikoo Li", "The light display at Chengdu SKP"], "optional": "Mini rotating hot pot lunch" },
+      { "day": "5", "route": ["Chengdu", "Manila"], "meals": "Breakfast · Lunch", "highlights": ["Dongjiao Memory creative park", "Outlet shopping, then the flight home"] }
+    ],
+    "included": ["Roundtrip airfare via Air China, 23 kg check-in", "4 nights in 4-star hotels with breakfast", "Private coach and English-speaking guide", "Sightseeing and first entrance fees", "Meals as listed, plus a bottle of water a day"],
+    "excluded": ["Group visa (US$40)", "PH travel tax (US$32)", "Driver and guide tips (US$25)", "Single room (US$120)", "Optional tours (US$110 for all three)"]
+  },
+  {
+    "id": "dubai-abu-dhabi",
+    "order": 2,
+    "name": "Habibi Dubai & Abu Dhabi",
+    "packageId": "dubai-abu-dhabi",
+    "duration": "7 days",
+    "currency": "USD",
+    "price": 1388,
+    "departs": "Out Manila",
+    "countries": ["UAE"],
+    "photo": {
+      "src": "packages/dubai-burj-al-arab.jpg",
+      "alt": "The sail-shaped Burj Al Arab hotel rising behind a Dubai beach"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila", "Dubai"], "meals": "Meals on board · Dinner", "highlights": ["Fly out of Manila", "Arrive in Dubai"] },
+      { "day": "2", "route": ["Old Dubai"], "meals": "Breakfast · Lunch", "highlights": ["Bastakiya and a water-taxi ride across the creek", "Spice and Gold Souks", "Dubai Mall and the Dancing Fountains"] },
+      { "day": "3", "route": ["Modern Dubai"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Miracle Garden", "Photo stops at Burj Al Arab and Palm Jumeirah", "4x4 desert safari with BBQ dinner and camel ride"] },
+      { "day": "4", "route": ["Abu Dhabi", "Dubai"], "meals": "Breakfast · Lunch", "highlights": ["Sheikh Zayed Grand Mosque", "Ferrari World and Yas Mall photo stop", "Global Village"] },
+      { "day": "5", "route": ["Dubai"], "meals": "Breakfast", "highlights": ["Free day"] },
+      { "day": "6", "route": ["Dubai"], "meals": "Breakfast · Meals on board", "highlights": ["Free and easy", "Transfer to the airport"] },
+      { "day": "7", "route": ["Manila"], "highlights": ["Arrive in Manila"] }
+    ],
+    "included": ["Roundtrip airfare with check-in baggage", "5 nights in a 4-star hotel", "Private coach", "Tours and meals as specified", "English-speaking guide", "Filipino tour escort"],
+    "excluded": ["Visa fee", "Travel insurance", "Airline and PH travel taxes", "Tourism tax", "Tipping"]
+  },
+  {
+    "id": "tales-of-arctic",
+    "order": 3,
+    "name": "Tales of Arctic",
+    "duration": "10 days",
+    "currency": "USD",
+    "price": 5988,
+    "departs": "Out Manila via Turkish Airlines",
+    "countries": ["Finland", "Norway", "Sweden"],
+    "note": "A Christmas-season departure in Finnish Lapland.",
+    "photo": {
+      "src": "tours/rovaniemi-husky-sled.jpg",
+      "alt": "Huskies pulling a sled through snowy pine forest near Rovaniemi, Finland",
+      "position": "50% 65%"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila"], "meals": "Meals on board", "highlights": ["Fly out of Manila"] },
+      { "day": "2", "route": ["Rovaniemi", "Suomutunturi"], "meals": "Meals on board · Dinner", "highlights": ["Santa Claus Village: meet Santa", "Cross the Arctic Circle, with certificate"] },
+      { "day": "3", "route": ["Suomutunturi", "Saariselkä"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Snowmobile safari", "Northern lights hunt by bus"] },
+      { "day": "4", "route": ["Saariselkä", "Kirkenes"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Husky safari", "Sámi Museum Siida"] },
+      { "day": "5", "route": ["Kirkenes", "Saariselkä"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["King crab safari with crab lunch", "Snow Hotel Kirkenes", "Night in a glass-roofed Arctic Studio or similar"] },
+      { "day": "6", "route": ["Saariselkä"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Reindeer farm and sledge ride", "Finnish sauna and ice swimming"] },
+      { "day": "7", "route": ["Haparanda", "Kemi"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Cross the Finland–Sweden border", "Ice fishing and whitefish grilled in a smoke hut"] },
+      { "day": "8", "route": ["Kemi"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Free day"], "optional": "Icebreaker cruise" },
+      { "day": "9", "route": ["Kemi", "Rovaniemi"], "meals": "Breakfast · Meals on board", "highlights": ["Transfer to Rovaniemi for the flight home"] },
+      { "day": "10", "route": ["Manila"], "meals": "Meals on board", "highlights": ["Arrive in Manila"] }
+    ],
+    "included": ["Roundtrip airfare via Turkish Airlines with check-in baggage", "7 nights hotel", "Meals as specified", "Private coach and fully loaded tours", "English-speaking guide", "Filipino tour escort"],
+    "excluded": ["Airline taxes", "Travel insurance", "Visa fee", "Tipping"]
+  },
+  {
+    "id": "treasures-of-turkiye",
+    "order": 4,
+    "name": "Treasures of Türkiye",
+    "packageId": "turkiye",
+    "duration": "11 days",
+    "currency": "USD",
+    "price": 1888,
+    "departs": "Out Manila, Davao or Cebu",
+    "countries": ["Türkiye"],
+    "photo": {
+      "src": "packages/istanbul-blue-mosque-dusk.jpg",
+      "alt": "Minarets and domes of Istanbul's Blue Mosque under a pink evening sky"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila", "Istanbul"], "meals": "Meals on board", "highlights": ["Fly out of Manila, Davao or Cebu"] },
+      { "day": "2", "route": ["Istanbul"], "meals": "Meals on board · Lunch · Dinner", "highlights": ["Old Town", "Blue Mosque and the Hippodrome", "Hagia Sophia"] },
+      { "day": "3", "route": ["Istanbul", "Çanakkale"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Cross the 1915 Çanakkale Bridge", "The wooden Horse of Troy"] },
+      { "day": "4", "route": ["Çanakkale", "Kuşadası"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["House of the Virgin Mary"] },
+      { "day": "5", "route": ["Kuşadası", "Pamukkale"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Ephesus Ancient City", "Hierapolis and the Cotton Castle terraces"] },
+      { "day": "6", "route": ["Konya", "Cappadocia"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Pass through Konya", "A Silk Road caravanserai"] },
+      { "day": "7", "route": ["Cappadocia"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Göreme Open Air Museum", "Valleys and fairy chimneys", "Avanos pottery village"], "optional": "Hot air balloon" },
+      { "day": "8", "route": ["Cappadocia", "Ankara"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Salt Lake", "Atatürk Mausoleum"], "optional": "Hot air balloon" },
+      { "day": "9", "route": ["Ankara", "Istanbul"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Topkapı Palace photo stop", "Taksim Square and İstiklal Street"] },
+      { "day": "10–11", "route": ["Istanbul", "Manila"], "meals": "Breakfast · Lunch · Meals on board", "highlights": ["Bosphorus cruise", "Grand Bazaar and Balat", "Fly home"] }
+    ],
+    "included": ["Roundtrip airfare with check-in baggage", "5-star hotels, plus a night in a cave hotel", "Full-board meals and bottled water", "Private coach and fully loaded tours", "Entrance fees", "English-speaking guide and Filipino tour escort"],
+    "excluded": ["Airline taxes", "Visa assistance and fee", "Travel insurance", "Tipping"]
+  },
+  {
+    "id": "amore-europe",
+    "order": 5,
+    "name": "Amore+ Europe",
+    "packageId": "amore-europe",
+    "duration": "11 days",
+    "currency": "USD",
+    "price": 2888,
+    "departs": "Out Manila, Davao, Clark or Cebu",
+    "countries": ["Italy", "Vatican City", "Austria", "Liechtenstein", "Switzerland", "Germany", "France"],
+    "photo": {
+      "src": "packages/rome-colosseum-dusk.jpg",
+      "alt": "The Colosseum in Rome lit up at dusk"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila", "Rome"], "meals": "Meals on board", "highlights": ["Fly out of Manila, Davao, Clark or Cebu"] },
+      { "day": "2", "route": ["Rome"], "meals": "Meals on board", "highlights": ["Colosseum photo stop", "Roman Forum"] },
+      { "day": "3", "route": ["Rome"], "meals": "Breakfast", "highlights": ["Vatican Museums, entrance included", "Trevi Fountain and the Spanish Steps"] },
+      { "day": "4", "route": ["Pisa", "Venice"], "meals": "Breakfast", "highlights": ["Leaning Tower of Pisa", "Piazza del Duomo"] },
+      { "day": "5", "route": ["Venice", "Innsbruck"], "meals": "Breakfast", "highlights": ["St. Mark's Square and Basilica", "Bridge of Sighs and the Doge's Palace"] },
+      { "day": "6", "route": ["Innsbruck", "Vaduz", "Lucerne"], "meals": "Breakfast", "highlights": ["Innsbruck city tour and the Golden Roof", "Pass through Vaduz, Liechtenstein"] },
+      { "day": "7", "route": ["Lucerne", "Freiburg"], "meals": "Breakfast", "highlights": ["Eiger Express up to Jungfraujoch"] },
+      { "day": "8", "route": ["Freiburg", "Strasbourg", "Paris"], "meals": "Breakfast", "highlights": ["Freiburg walking tour", "Strasbourg's Petite France"] },
+      { "day": "9", "route": ["Paris"], "meals": "Breakfast", "highlights": ["Seine night cruise", "Paris city tour: Arc de Triomphe, Louvre, Eiffel Tower", "Galeries Lafayette"] },
+      { "day": "10–11", "route": ["Paris", "Manila"], "meals": "Breakfast · Meals on board", "highlights": ["Sacré-Cœur photo stop", "La Vallée Village", "Fly home"] }
+    ],
+    "included": ["Roundtrip airfare with check-in baggage", "8 nights hotel", "Daily breakfast", "Private coach", "English-speaking guide and European tour manager", "Filipino tour escort", "Sightseeing and entrances as specified"],
+    "excluded": ["Airline taxes", "City taxes", "Visa assistance and fee", "Travel insurance", "Tipping"]
+  },
+  {
+    "id": "bienvenidos",
+    "order": 6,
+    "name": "Bienvenidos",
+    "packageId": "bienvenidos",
+    "duration": "11 days",
+    "currency": "USD",
+    "price": 2888,
+    "departs": "Out Manila",
+    "countries": ["Portugal", "Spain"],
+    "photo": {
+      "src": "packages/lisbon-yellow-tram.jpg",
+      "alt": "A yellow vintage tram on a cobbled street in Lisbon, Portugal",
+      "position": "60% 50%"
+    },
+    "days": [
+      { "day": "1–2", "route": ["Manila", "Lisbon", "Fátima"], "meals": "Meals on board · Lunch", "highlights": ["Lisbon half-day city tour", "Transfer to Fátima"] },
+      { "day": "3", "route": ["Fátima"], "meals": "Breakfast", "highlights": ["Full day of devotion in Fátima", "The Candlelight Procession"] },
+      { "day": "4", "route": ["Coimbra", "Porto"], "meals": "Breakfast", "highlights": ["Coimbra city tour"] },
+      { "day": "5", "route": ["Porto", "Salamanca"], "meals": "Breakfast", "highlights": ["Porto half-day city tour", "Port wine tasting"] },
+      { "day": "6", "route": ["Ávila", "Segovia", "Madrid"], "meals": "Breakfast · Lunch", "highlights": ["The walled city of Ávila", "Suckling pig lunch in Segovia"] },
+      { "day": "7", "route": ["Toledo", "Madrid"], "meals": "Breakfast · Dinner", "highlights": ["Toledo city tour", "Madrid panoramic tour", "Flamenco show and dinner"] },
+      { "day": "8", "route": ["Zaragoza", "Barcelona"], "meals": "Breakfast", "highlights": ["Basilica of Our Lady of the Pillar"] },
+      { "day": "9", "route": ["Montserrat", "Barcelona"], "meals": "Breakfast · Dinner", "highlights": ["Montserrat and La Moreneta", "Sagrada Família", "Paella dinner"] },
+      { "day": "10", "route": ["Barcelona"], "meals": "Breakfast · Meals on board", "highlights": ["Free time at La Roca Village", "Fly home"] },
+      { "day": "11", "route": ["Manila"], "meals": "Meals on board", "highlights": ["Arrive in Manila"] }
+    ],
+    "included": ["Roundtrip airfare with check-in baggage", "8 nights hotel", "Daily breakfast and meals as specified", "Private coach and fully loaded tours", "European tour manager", "Filipino tour escort"],
+    "excluded": ["Airline taxes", "City taxes", "Visa assistance and fee", "Travel insurance", "Tipping"]
+  },
+  {
+    "id": "crystals-of-iceland",
+    "order": 7,
+    "name": "Crystals of Iceland & Scandinavia",
+    "packageId": "iceland-scandinavia",
+    "duration": "12 days",
+    "currency": "USD",
+    "price": 5288,
+    "departs": "Out Manila",
+    "countries": ["Denmark", "Norway", "Iceland", "Sweden"],
+    "photo": {
+      "src": "packages/reykjavik-lighthouse-aurora.jpg",
+      "alt": "Green northern lights over the white Grótta lighthouse near Reykjavík, Iceland"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila"], "meals": "Meals on board", "highlights": ["Fly out of Manila"] },
+      { "day": "2", "route": ["Copenhagen"], "meals": "Meals on board · Dinner", "highlights": ["Frederiksborg and Kronborg castles"] },
+      { "day": "3", "route": ["Copenhagen", "Oslo"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Copenhagen sightseeing: the Little Mermaid, Nyhavn", "Overnight DFDS cruise to Oslo"] },
+      { "day": "4", "route": ["Oslo"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Oslo city tour", "Fram Museum", "Holmenkollen Ski Jump"] },
+      { "day": "5", "route": ["Oslo", "Reykjavík"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Fly to Iceland", "Blue Lagoon", "Northern lights hunt by bus"] },
+      { "day": "6", "route": ["Reykjavík", "Hella"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Golden Circle: Þingvellir, Geysir, Gullfoss"] },
+      { "day": "7", "route": ["South Shore", "Vík"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Gljúfrabúi and Skógafoss waterfalls", "Black sand beach"] },
+      { "day": "8", "route": ["Vík"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Jökulsárlón glacier lagoon", "Crystal blue ice cave tour"] },
+      { "day": "9", "route": ["Vík", "Reykjavík"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["The plane wreck", "Reykjavík city tour"] },
+      { "day": "10", "route": ["Reykjavík", "Stockholm"], "meals": "Breakfast · Lunch · Dinner", "highlights": ["Stockholm sightseeing and the Royal Palace", "Vasa Museum"] },
+      { "day": "11", "route": ["Stockholm"], "meals": "Breakfast · Meals on board", "highlights": ["Transfer to the airport"] },
+      { "day": "12", "route": ["Manila"], "meals": "Meals on board", "highlights": ["Arrive in Manila"] }
+    ],
+    "included": ["Roundtrip airfare plus a domestic flight via Icelandair", "Check-in baggage", "8 nights hotel and an overnight cruise", "Daily breakfast, lunch and dinner as specified", "Private coach, sightseeing and entrances", "European tour manager and Filipino tour escort"],
+    "excluded": ["International and domestic airline taxes", "Visa assistance and fee", "Travel insurance", "Tipping"]
+  },
+  {
+    "id": "vikings",
+    "order": 8,
+    "name": "Vikings: Scandinavia & Baltics",
+    "packageId": "vikings",
+    "duration": "13 days",
+    "currency": "USD",
+    "price": 3488,
+    "departs": "Out Manila via Turkish Airlines",
+    "countries": ["Denmark", "Norway", "Sweden", "Finland", "Estonia", "Latvia", "Lithuania"],
+    "note": "Group tour, minimum 20 pax.",
+    "photo": {
+      "src": "packages/lofoten-henningsvaer.jpg",
+      "alt": "Aerial view of the fishing village of Henningsvær spread across small islands in Lofoten, Norway"
+    },
+    "days": [
+      { "day": "1", "route": ["Manila"], "meals": "Meals on board", "highlights": ["Fly out of Manila"] },
+      { "day": "2", "route": ["Copenhagen"], "meals": "Dinner", "highlights": ["Copenhagen city tour", "The Little Mermaid and Gefion Fountain", "Free time at Nyhavn"] },
+      { "day": "3", "route": ["Copenhagen", "Oslo"], "meals": "Breakfast · Dinner", "highlights": ["Christiansborg Palace", "Overnight DFDS Seaways cruise to Oslo"] },
+      { "day": "4", "route": ["Oslo", "Karlstad"], "meals": "Breakfast · Dinner", "highlights": ["Oslo city tour", "Holmenkollen Ski Jump", "Vigeland Park"] },
+      { "day": "5", "route": ["Stockholm", "Helsinki"], "meals": "Breakfast · Dinner", "highlights": ["Stockholm city tour and Vasa Museum", "Overnight Silja Line cruise to Helsinki"] },
+      { "day": "6", "route": ["Helsinki"], "meals": "Breakfast · Dinner", "highlights": ["Helsinki city tour: Senate Square, Sibelius Park", "Temppeliaukio rock church"] },
+      { "day": "7", "route": ["Helsinki", "Tallinn"], "meals": "Breakfast · Dinner", "highlights": ["Ferry across to Tallinn"] },
+      { "day": "8", "route": ["Tallinn", "Riga"], "meals": "Breakfast · Dinner", "highlights": ["Tallinn Old Town and Toompea Hill", "Alexander Nevsky Cathedral"] },
+      { "day": "9", "route": ["Riga"], "meals": "Breakfast · Dinner", "highlights": ["Riga Old Town and the Swedish Gate", "Central Market and the Art Nouveau quarter"] },
+      { "day": "10", "route": ["Riga", "Vilnius"], "meals": "Breakfast · Dinner", "highlights": ["Hill of Crosses"] },
+      { "day": "11", "route": ["Vilnius"], "meals": "Breakfast · Dinner", "highlights": ["Trakai Island Castle", "Vilnius Old Town and Gediminas Tower"] },
+      { "day": "12–13", "route": ["Vilnius", "Manila"], "meals": "Breakfast · Meals on board", "highlights": ["Fly home"] }
+    ],
+    "included": ["Roundtrip airfare with check-in baggage", "Overnight cruises on DFDS Seaways and Silja Line", "Tours and meals as specified", "Entrance fees per itinerary", "Private coach", "European tour manager and Filipino tour escort"],
+    "excluded": ["Airline taxes", "Visa assistance and fee", "Travel insurance", "Tipping and porterage"]
+  }
+]

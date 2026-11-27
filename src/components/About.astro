@@ -1,0 +1,58 @@
+---
+// Warm note about CheaPOX and its owner, with a hanging staff name tag (the hero tag's string, in white).
+import { Picture } from 'astro:assets';
+import logo from '../assets/logo/cheapox-logo.jpg';
+import { getSite } from '../lib/site';
+const site = await getSite();
+const a = site.about;
+---
+<section class="about" id="about" aria-labelledby="ab-title">
+  <div class="about__copy">
+    <h2 class="display" id="ab-title">{a.titleTop}<br><span>{a.titleBottom}</span></h2>
+    {a.paragraphs.map((p, i) => <p class:list={{ lead: i === 0 }}>{p}</p>)}
+  </div>
+
+  <div class="badge-wrap">
+    <div class="badge" data-swing="-4">
+      <span class="badge__string" aria-hidden="true"></span>
+      <div class="badge__card">
+        <span class="badge__chip"><Picture src={logo} alt={`${site.name} logo`} formats={['webp']} widths={[96, 192, 288]} sizes="96px" quality={95} /></span>
+        <p class="badge__name display">{site.owner.name}</p>
+        <p class="badge__role">{site.owner.role}</p>
+        <p class="badge__addr">{site.address.street}, {site.address.locality}, {site.address.region}</p>
+        <p class="badge__tag">{site.tagline}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { background: var(--yellow); padding: var(--section-top) var(--gutter) var(--section-bottom); display: grid; grid-template-columns: 1.3fr 1fr; gap: 72px; align-items: center; }
+  .about h2 { font-size: var(--fs-section); margin: 0 0 40px; }
+  .about h2 span { color: var(--orange-deep); }
+  .about__copy p { margin: 0 0 20px; font-size: 18px; line-height: 1.6; max-width: 34em; }
+  .about__copy .lead { font-size: var(--fs-lead); font-weight: 600; line-height: 1.5; }
+
+  .badge-wrap { display: flex; justify-content: center; align-self: start; margin-top: -40px; }
+  .badge { transform-origin: 50% 0; rotate: -4deg; }
+  .badge__string { display: block; width: 3px; height: 96px; margin: 0 auto; background: var(--navy); border-radius: 2px; }
+  .badge__card { position: relative; width: 340px; background: var(--white); border-radius: 28px; padding: 56px 32px 32px; text-align: center; box-shadow: 0 30px 60px rgba(120,80,0,.25); }
+  .badge__card::before { content: ""; position: absolute; top: 18px; left: 50%; width: 56px; height: 14px; translate: -50% 0; border-radius: 999px; background: var(--yellow); box-shadow: inset 0 0 0 3px var(--navy); }
+  .badge__chip { display: inline-flex; padding: 6px; border-radius: 20px; box-shadow: 0 0 0 2px rgba(20,32,74,.08); background: #fff; }
+  .badge__chip :global(img) { width: 96px; height: 96px; }
+  .badge__card p { margin: 0; }
+  .badge__name { font-size: 48px; margin-top: 22px !important; }
+  .badge__role { font-weight: 700; font-size: 17px; margin-top: 8px !important; }
+  .badge__addr { font-size: 15px; color: var(--ink-soft); margin-top: 16px !important; padding-top: 16px; border-top: 2px dashed rgba(20,32,74,.2); }
+  .badge__tag { display: inline-block; margin-top: 18px !important; font-size: 13px; font-weight: 700; background: var(--navy); color: var(--yellow); padding: 4px 12px; border-radius: 999px; }
+
+  @media (max-width: 1100px) {
+    .about { grid-template-columns: 1fr; gap: 56px; }
+    .badge-wrap { margin-top: 0; }
+  }
+  @media (max-width: 560px) {
+    .badge__card { width: min(320px, calc(100vw - 64px)); padding: 52px 24px 28px; }
+    .badge__name { font-size: 42px; }
+    .badge__string { height: 56px; }
+  }
+</style>

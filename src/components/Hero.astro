@@ -1,0 +1,127 @@
+---
+// Approved split hero + tagline marquee band. Desktop values are verbatim from the approved page.
+import { Picture } from 'astro:assets';
+import Header from './Header.astro';
+import PriceTag from './PriceTag.astro';
+import Icon from './Icon.astro';
+import logo from '../assets/logo/cheapox-logo.jpg';
+import { getSite, getPackage, formatPrice } from '../lib/site';
+import { photo } from '../lib/images';
+
+const site = await getSite();
+const { hero, contact } = site;
+const marquee = [
+  site.tagline,
+  ...(await Promise.all(site.marquee.map(async (id) => {
+    const p = (await getPackage(id)).data;
+    return `${p.name} ${formatPrice(p.currency, p.price)}`;
+  }))),
+];
+---
+<header>
+  <div class="hero">
+    <figure class="hero__photo">
+      <Picture
+        src={photo(hero.photo.src)}
+        alt={hero.photo.alt}
+        formats={['webp']}
+        widths={[480, 720, 960, 1280, 1800]}
+        sizes="(max-width: 900px) 100vw, 46vw"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+        quality={78}
+      />
+      <figcaption>{hero.photo.caption}</figcaption>
+    </figure>
+    <a class="logo-chip" href="#top" aria-label={`${site.name}, home`}>
+      <Picture src={logo} alt={`${site.name} logo`} formats={['webp']} widths={[76, 152, 228]} sizes="76px" loading="eager" quality={95} />
+    </a>
+
+    <PriceTag />
+
+    <div class="hero__side">
+      <Header />
+      <div class="hero__copy">
+        <h1 class="display">{hero.headlineBefore} <span class="hl">{hero.headlineHighlight}</span> {hero.headlineAfter}</h1>
+        <p class="hero__sub">{hero.sub}</p>
+        <div class="actions">
+          <a class="btn btn--primary" href={contact.facebookUrl}>Inquire Now <Icon name="arrow" strokeWidth={2.2} /></a>
+          <a class="btn btn--ghost" href="#packages">View Packages</a>
+        </div>
+        <div class="quick">
+          <a href={`https://wa.me/${contact.mobileE164.slice(1)}`}><Icon name="phone" />Call / WhatsApp {contact.mobile}</a>
+          <a href={`mailto:${contact.email}`}><Icon name="mail" />Email Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band" aria-hidden="true">
+    {[0, 1].map(() => (
+      <div class="band__track">
+        {marquee.map((item) => <span class="band__item">{item} <Icon name="star" /></span>)}
+      </div>
+    ))}
+  </div>
+</header>
+
+<style>
+  .hero { --hero-photo-h: 0px; display: grid; grid-template-columns: 46fr 54fr; height: max(720px, calc(100vh - 76px)); min-height: 720px; background: var(--yellow); position: relative; }
+  .hero__photo { position: relative; overflow: hidden; background: var(--navy); margin: 0; }
+  .hero__photo :global(picture) { display: contents; }
+  .hero__photo :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: 74% 50%; }
+  .hero__photo figcaption { position: absolute; left: var(--gutter); bottom: 32px; color: var(--white); font-size: 14px; font-weight: 600; background: rgba(20,32,74,.78); padding: 6px 12px; border-radius: 999px; }
+  .logo-chip { position: absolute; top: 28px; left: var(--gutter); z-index: 3; display: inline-flex; background: #fff; padding: 9px; border-radius: 22px; box-shadow: 0 10px 30px rgba(10,15,40,.3); }
+  .logo-chip :global(img) { width: 76px; height: 76px; }
+
+  /* The nav floats (position: fixed), so the top padding keeps its old 36px + nav-height clearance for the headline. */
+  .hero__side { position: relative; display: flex; flex-direction: column; padding: 84px var(--gutter) 56px 120px; }
+  .hero__copy { margin-top: auto; }
+  .hero h1 { font-size: var(--fs-hero); margin: 0 0 32px; text-wrap: balance; }
+  .hero h1 .hl { color: var(--white); background: var(--orange); padding: 0 .12em; border-radius: .08em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .hero__sub { font-size: 23px; line-height: 1.45; white-space: nowrap; margin: 0 0 40px; font-weight: 500; color: var(--navy); }
+  .quick { display: flex; gap: 28px; margin-top: 28px; font-weight: 600; font-size: 16px; }
+  .quick a { display: inline-flex; gap: 8px; align-items: center; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; text-decoration-color: var(--orange); }
+  .quick :global(svg) { width: 18px; height: 18px; }
+
+  /* tagline marquee band */
+  .band { background: var(--navy); color: var(--yellow); overflow: hidden; height: 76px; display: flex; align-items: center; }
+  .band__track { display: flex; flex-shrink: 0; gap: 48px; padding-right: 48px; animation: marquee 32s linear infinite; white-space: nowrap; }
+  .band:hover .band__track { animation-play-state: paused; }
+  .band__item { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: 40px; text-transform: uppercase; letter-spacing: .01em; display: inline-flex; align-items: center; gap: 48px; }
+  .band__item :global(svg) { width: 26px; height: 26px; color: var(--orange); }
+
+  /* ---------- below the approved 1440 design ---------- */
+  @media (max-width: 1279px) {
+    .hero__side { padding-left: 96px; }
+    .hero h1 { font-size: clamp(72px, 7.4vw, 96px); }
+    .hero__sub { white-space: normal; font-size: 21px; max-width: 24em; }
+    .quick { flex-wrap: wrap; gap: 14px 28px; }
+  }
+  @media (max-width: 1100px) {
+    .hero__side { padding-left: 88px; }
+  }
+  @media (max-width: 900px) {
+    /* Stack: photo on top, yellow panel below; the price tag keeps overlapping the photo's lower edge. */
+    .hero { --hero-photo-h: clamp(420px, 62vh, 560px); grid-template-columns: 1fr; grid-template-rows: var(--hero-photo-h) auto; height: auto; min-height: 0; }
+    .hero__photo :global(img) { object-position: 60% 50%; }
+    .hero__photo figcaption { bottom: 24px; }
+    .hero__side { position: static; padding: 104px var(--gutter) 64px; }
+    .hero h1 { font-size: clamp(56px, 14.6vw, 104px); margin-bottom: 24px; }
+    .hero__sub { margin-bottom: 32px; }
+    .band { height: 64px; }
+    .band__item { font-size: 32px; gap: 36px; }
+    .band__track { gap: 36px; padding-right: 36px; }
+    .band__item :global(svg) { width: 22px; height: 22px; }
+  }
+  @media (max-width: 560px) {
+    .hero { --hero-photo-h: 440px; }
+    .logo-chip { top: 20px; padding: 7px; border-radius: 18px; }
+    .logo-chip :global(img) { width: 62px; height: 62px; }
+    .hero__photo figcaption { left: var(--gutter); bottom: 20px; font-size: 13px; }
+    .hero__side { padding-top: 88px; padding-bottom: 56px; }
+    .hero__sub { font-size: 19px; }
+    .actions .btn { flex: 1 1 auto; justify-content: center; }
+  }
+</style>

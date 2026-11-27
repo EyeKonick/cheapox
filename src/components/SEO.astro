@@ -1,0 +1,70 @@
+---
+import { getSite } from '../lib/site';
+import logo from '../assets/logo/cheapox-logo.jpg';
+
+const site = await getSite();
+const siteUrl = Astro.site ?? new URL('https://cheapoxtravelandtours.com');
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL('/og-image.jpg', siteUrl).href;
+const logoUrl = new URL(logo.src, siteUrl).href;
+const { contact, address } = site;
+
+// sameAs only takes real URLs; the Facebook link stays out until the real page URL is filled in.
+const sameAs = [contact.facebookUrl, contact.instagramUrl].filter((u) => /^https?:\/\//.test(u));
+
+// TravelAgency is a LocalBusiness subtype. No rating, review or openingHours: there is no real data for them yet.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TravelAgency',
+  '@id': `${siteUrl.origin}/#agency`,
+  name: site.name,
+  slogan: site.tagline,
+  description: site.seo.description,
+  url: siteUrl.href,
+  logo: logoUrl,
+  image: ogImage,
+  telephone: contact.mobileE164,
+  email: contact.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: address.street,
+    addressLocality: address.locality,
+    addressRegion: address.region,
+    postalCode: address.postalCode,
+    addressCountry: address.country,
+  },
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: contact.mobileE164, contactType: 'customer service', availableLanguage: ['en', 'fil'] },
+    { '@type': 'ContactPoint', telephone: contact.landlineE164, contactType: 'customer service' },
+  ],
+  founder: { '@type': 'Person', name: site.owner.name, jobTitle: site.owner.role },
+  sameAs,
+};
+---
+<title>{site.seo.title}</title>
+<meta name="description" content={site.seo.description}>
+<link rel="canonical" href={canonical}>
+<meta name="theme-color" content="#ffc629">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content={site.name}>
+<meta property="og:locale" content="en_PH">
+<meta property="og:url" content={canonical}>
+<meta property="og:title" content={site.seo.title}>
+<meta property="og:description" content={site.seo.description}>
+<meta property="og:image" content={ogImage}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CheaPOX Travel and Tours logo beside a night street in Bangkok, with the tagline Cheap Na, Oks Na Oks Pa!">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={site.seo.title}>
+<meta name="twitter:description" content={site.seo.description}>
+<meta name="twitter:image" content={ogImage}>
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

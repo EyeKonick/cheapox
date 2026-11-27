@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sample-1",
+    "order": 1,
+    "sample": true,
+    "name": "Joy M.",
+    "from": "Mendez, Cavite",
+    "trip": "Hong Kong",
+    "group": "Barkada of 6",
+    "quote": "Sir Arnel answered our group chat questions one by one, even at night. Flights, hotel, tours, lahat sorted. Cheap na talaga, oks na oks pa!"
+  },
+  {
+    "id": "sample-2",
+    "order": 2,
+    "sample": true,
+    "name": "The Dela Cruz family",
+    "from": "Tagaytay City",
+    "trip": "Japan",
+    "group": "Family of 4",
+    "quote": "First time namin abroad with the kids. They walked us through the visa papers and checked on us while we were in Osaka. We just packed and enjoyed."
+  },
+  {
+    "id": "sample-3",
+    "order": 3,
+    "sample": true,
+    "name": "Mark & Ana R.",
+    "from": "Dasmariñas, Cavite",
+    "trip": "Treasures of Türkiye",
+    "group": "Couple",
+    "quote": "The cave hotel in Cappadocia and the balloon morning were the highlight of our anniversary. The Filipino tour escort made eleven days feel easy."
+  },
+  {
+    "id": "sample-4",
+    "order": 4,
+    "sample": true,
+    "name": "Liza T.",
+    "from": "Indang, Cavite",
+    "trip": "Da Nang",
+    "group": "Office team of 12",
+    "quote": "We needed one van for twelve people around Da Nang and Ba Na Hills. The driver was on time every single day, and the price was lower than what we found online."
+  },
+  {
+    "id": "sample-5",
+    "order": 5,
+    "sample": true,
+    "name": "Ramon P.",
+    "from": "Trece Martires City",
+    "trip": "Amore+ Europe",
+    "group": "Senior citizens group",
+    "quote": "Seven countries at our age, I was worried. Everything was paced well, the hotels were clean, and paying by card in installments made it possible."
+  },
+  {
+    "id": "sample-6",
+    "order": 6,
+    "sample": true,
+    "name": "Kim S.",
+    "from": "Alfonso, Cavite",
+    "trip": "Korea",
+    "group": "Solo traveler",
+    "quote": "Asked for a solo trip quote on Messenger in the morning and had a full breakdown by lunch. No hidden fees when I paid."
+  }
+]

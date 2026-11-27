@@ -1,0 +1,238 @@
+---
+// Day-by-day guided tours, transcribed from the tour flyers. One luggage-tag tab per tour; each panel pairs a
+// white summary card (photo, price sticker, what's in and out) with a navy day-by-day timeline.
+// Without JS every panel simply shows, one after another.
+import { Picture } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+import { getSite, formatPrice } from '../lib/site';
+import { photo } from '../lib/images';
+
+const site = await getSite();
+const t = site.toursSection;
+const tours = (await getCollection('tours')).sort((a, b) => a.data.order - b.data.order);
+const inquire = site.contact.facebookUrl;
+---
+<section class="tours" id="itineraries" aria-labelledby="tr-title">
+  <div class="sec-head">
+    <h2 class="display" id="tr-title">{t.titleTop}<br><span>{t.titleBottom}</span></h2>
+    <p>{t.intro}</p>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Guided tours" hidden>
+    {tours.map((tour, i) => (
+      <button class="tab" type="button" role="tab" id={`tab-${tour.id}`} aria-controls={`tour-${tour.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+        <span class="tab__name">{tour.data.name}</span>
+        <span class="tab__days">{tour.data.duration}</span>
+      </button>
+    ))}
+  </div>
+
+  {tours.map((tour) => {
+    const d = tour.data;
+    const unit = 'per pax';
+    return (
+      <article class="tour" id={`tour-${tour.id}`} role="tabpanel" aria-labelledby={`tour-${tour.id}-name`}>
+        <div class="summary">
+          <div class="summary__media">
+            <Picture
+              src={photo(d.photo.src)}
+              alt={d.photo.alt}
+              formats={['webp']}
+              widths={[400, 600, 800]}
+              sizes="(max-width: 1000px) calc(100vw - 64px), 34vw"
+              style={d.photo.position ? `object-position: ${d.photo.position}` : undefined}
+              quality={74}
+            />
+            <p class="sticker"><small>as low as</small><b>{formatPrice(d.currency, d.price)}</b><i>{unit}</i></p>
+          </div>
+          <div class="summary__body">
+            <p class="summary__meta"><span class="pill">{d.duration}</span> {d.departs}</p>
+            <h3 class="display" id={`tour-${tour.id}-name`}>{d.name}</h3>
+            <p class="summary__countries">{d.countries.join(' · ')}</p>
+            {d.note && <p class="summary__note">{d.note}</p>}
+            <div class="lists">
+              <div>
+                <p class="lists__cap">{t.includedLabel}</p>
+                <ul class="lists__in">{d.included.map((x) => <li><Icon name="check" strokeWidth={2.6} />{x}</li>)}</ul>
+              </div>
+              <div>
+                <p class="lists__cap">{t.excludedLabel}</p>
+                <ul class="lists__out">{d.excluded.map((x) => <li><Icon name="close" strokeWidth={2.4} />{x}</li>)}</ul>
+              </div>
+            </div>
+            <a class="btn btn--primary" href={inquire}>{t.cta}<span class="sr-only">: {d.name}</span> <Icon name="arrow" strokeWidth={2.2} /></a>
+          </div>
+        </div>
+
+        <div class="plan">
+          <p class="plan__cap"><span>{t.daysLabel}</span> {d.days.length > 0 && `${d.duration}, ${d.countries.length} ${d.countries.length === 1 ? 'country' : 'countries'}`}</p>
+          <ol class="days">
+            {d.days.map((day) => (
+              <li class="day">
+                <p class="day__num" aria-hidden="true"><small>Day</small><b>{day.day}</b></p>
+                <div class="day__body">
+                  <h4><span class="sr-only">Day {day.day}: </span>{day.route.map((r, i) => <>{i > 0 && <><span class="day__arrow" aria-hidden="true"> → </span><span class="sr-only"> to </span></>}{r}</>)}</h4>
+                  <ul class="day__list">{day.highlights.map((h) => <li>{h}</li>)}</ul>
+                  {(day.optional || day.meals) && (
+                    <p class="day__foot">
+                      {day.meals && <span class="day__meals">{day.meals}</span>}
+                      {day.optional && <span class="day__opt">Optional: {day.optional}</span>}
+                    </p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </article>
+    );
+  })}
+</section>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('.tours');
+    const list = root.querySelector('.tabs');
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
+    list.hidden = false;
+    root.classList.add('tours--tabs');
+    const show = (i, focus) => {
+      tabs.forEach((tab, j) => {
+        const on = i === j;
+        tab.setAttribute('aria-selected', String(on));
+        tab.tabIndex = on ? 0 : -1;
+        panels[j].hidden = !on;
+      });
+      if (focus) tabs[i].focus();
+      tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => show(i, false));
+      tab.addEventListener('keydown', (e) => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (step) { e.preventDefault(); show((i + step + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); show(0, true); }
+        if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+      });
+    });
+    // Links to #tour-<id> (from the package cards) open that tour's tab, then scroll to the section.
+    const fromHash = () => {
+      const i = panels.findIndex((p) => '#' + p.id === location.hash);
+      if (i < 0) return;
+      show(i, false);
+      root.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    };
+    addEventListener('hashchange', fromHash);
+    show(0, false);
+    fromHash();
+  })();
+</script>
+
+<style>
+  .tours { background: var(--sky); color: var(--navy); padding: var(--section-top) var(--gutter) var(--section-bottom); }
+  .tours h2 span { color: var(--white); text-shadow: 0 5px 0 var(--navy); }
+
+  /* luggage-tag tabs */
+  .tabs { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 44px; }
+  .tab { position: relative; flex: none; scroll-snap-align: start; display: grid; gap: 2px; text-align: left; font: inherit; color: var(--navy); background: var(--white); border: 0; cursor: pointer;
+    padding: 12px 20px 12px 34px; border-radius: 12px 999px 999px 12px; box-shadow: 0 8px 18px rgba(20,32,74,.14); transition: background-color .25s, color .25s, transform .4s var(--ease), box-shadow .4s var(--ease); }
+  .tab::before { content: ""; position: absolute; left: 13px; top: 50%; width: 9px; height: 9px; translate: 0 -50%; border-radius: 50%; background: var(--sky); box-shadow: inset 0 0 0 2px var(--navy); }
+  .tab:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(20,32,74,.18); }
+  .tab__name { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 21px; line-height: 1; letter-spacing: -.005em; white-space: nowrap; }
+  .tab__days { font-size: 13px; font-weight: 700; color: var(--ink-soft); }
+  .tab[aria-selected="true"] { background: var(--navy); color: var(--yellow); }
+  .tab[aria-selected="true"] .tab__days { color: var(--on-navy-soft); }
+  .tab[aria-selected="true"]::before { background: var(--yellow); box-shadow: none; }
+  .tab:focus-visible { outline-offset: 4px; }
+
+  /* one tour */
+  .tour { display: grid; grid-template-columns: minmax(340px, 5fr) 7fr; gap: var(--grid-gap); align-items: start; }
+  .tour + .tour { margin-top: 72px; }
+  .tours--tabs .tour + .tour { margin-top: 0; }
+  .tours--tabs .tour:not([hidden]) { animation: tour-in .55s var(--ease) both; }
+  @keyframes tour-in { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+
+  .summary { background: var(--white); border-radius: var(--r-card); padding: 12px 12px 32px; box-shadow: 0 24px 50px rgba(20,32,74,.22); }
+  .summary__media { position: relative; aspect-ratio: 4 / 3; }
+  .summary__media :global(picture) { display: contents; }
+  .summary__media :global(img) { width: 100%; height: 100%; object-fit: cover; border-radius: var(--r-media); }
+  .sticker { position: absolute; right: -10px; bottom: -28px; width: 136px; height: 136px; border-radius: 50%; background: var(--yellow); color: var(--navy); display: grid; place-content: center; text-align: center; rotate: 9deg; box-shadow: 0 10px 22px rgba(20,32,74,.22); margin: 0; }
+  .sticker::after { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed rgba(20,32,74,.45); }
+  .sticker small { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+  .sticker b { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: var(--fs-sticker); line-height: .95; letter-spacing: -.02em; }
+  .sticker i { font-style: normal; font-size: 12.5px; font-weight: 600; }
+
+  .summary__body { padding: 30px 18px 0; }
+  .summary__meta { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: var(--fs-small); font-weight: 700; color: var(--ink-soft); max-width: calc(100% - 110px); }
+  .pill { display: inline-block; padding: 4px 12px; border-radius: var(--r-pill); background: var(--navy); color: var(--yellow); font-size: 13px; }
+  .summary h3 { font-size: var(--fs-card-title); margin: 16px 0 8px; }
+  .summary__countries { margin: 0; font-weight: 700; color: var(--orange-deep); font-size: var(--fs-small); }
+  .summary__note { margin: 14px 0 0; font-size: var(--fs-small); line-height: 1.5; padding: 10px 14px; border-radius: 12px; background: var(--yellow-soft); }
+  .lists { display: grid; gap: 18px; margin: 22px 0 26px; padding-top: 20px; border-top: 2px dashed rgba(20,32,74,.2); }
+  .lists__cap { margin: 0 0 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .lists ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: var(--fs-small); line-height: 1.45; }
+  .lists li { display: flex; gap: 8px; align-items: flex-start; }
+  .lists :global(svg) { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+  .lists__in :global(svg) { color: var(--orange); }
+  .lists__out { color: var(--ink-soft); }
+  .lists__out :global(svg) { color: var(--ink-soft); }
+
+  /* day-by-day timeline */
+  .plan { background: var(--navy); color: var(--white); border-radius: var(--r-card); padding: 34px 36px 38px; box-shadow: 0 24px 50px rgba(20,32,74,.28); }
+  .plan__cap { margin: 0 0 26px; display: flex; align-items: center; gap: 12px; font-size: var(--fs-small); font-weight: 600; color: var(--on-navy-soft); }
+  .plan__cap span { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 30px; line-height: 1; color: var(--yellow); }
+  .days { list-style: none; margin: 0; padding: 0; position: relative; }
+  .days::before { content: ""; position: absolute; left: 31px; top: 30px; bottom: 30px; border-left: 2.5px dashed rgba(255,198,41,.45); }
+  .day { position: relative; display: grid; grid-template-columns: 64px 1fr; gap: 20px; padding: 14px 0; }
+  .day + .day { border-top: 1px solid rgba(255,255,255,.08); }
+  .day__num { position: relative; margin: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--yellow); color: var(--navy); display: grid; place-content: center; text-align: center; line-height: 1; box-shadow: 0 0 0 6px var(--navy); }
+  .day__num small { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .day__num b { font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; font-size: 26px; letter-spacing: -.03em; }
+  .day:nth-child(even) .day__num { background: var(--sky); }
+  .day:first-child .day__num, .day:last-child .day__num { background: var(--orange); color: var(--white); }
+  .day__body { padding-top: 4px; min-width: 0; }
+  .day h4 { margin: 0 0 6px; font-weight: 800; font-variation-settings: "wdth" 75, "opsz" 96; text-transform: uppercase; font-size: 26px; line-height: 1; letter-spacing: -.01em; color: var(--white); }
+  .day__arrow { color: var(--yellow); }
+  .day__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 0; font-size: 16px; line-height: 1.5; color: var(--on-navy-soft); }
+  .day__list li:not(:last-child)::after { content: "·"; margin: 0 9px; color: var(--yellow); font-weight: 800; }
+  .day__foot { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .day__meals, .day__opt { font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: var(--r-pill); }
+  .day__meals { background: rgba(255,255,255,.1); color: var(--white); }
+  .day__opt { background: var(--orange); color: var(--navy); }
+
+  @media (max-width: 1100px) {
+    .tour { grid-template-columns: 1fr; }
+    .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 12px; }
+    .summary__media { aspect-ratio: auto; min-height: 100%; }
+    .summary__body { padding: 22px 18px 20px; }
+    .summary__meta { max-width: none; }
+    .sticker { right: auto; left: 14px; bottom: 14px; width: 120px; height: 120px; }
+    .sticker b { font-size: 30px; }
+  }
+  @media (max-width: 760px) {
+    .summary { display: block; padding-bottom: 28px; }
+    .summary__media { aspect-ratio: 4 / 3; }
+    .sticker { left: auto; right: -6px; bottom: -26px; }
+    .summary__body { padding: 30px 14px 0; }
+    .summary__meta { max-width: calc(100% - 100px); }
+    .plan { padding: 26px 18px 28px; }
+    .days::before { left: 25px; }
+    .day { grid-template-columns: 52px 1fr; gap: 14px; }
+    .day__num { width: 52px; height: 52px; }
+    .day__num b { font-size: 21px; }
+    .day h4 { font-size: 22px; }
+    .day__list { display: grid; gap: 2px; font-size: 15.5px; }
+    .day__list li:not(:last-child)::after { content: none; }
+    .day__list li::before { content: "·"; margin-right: 7px; color: var(--yellow); font-weight: 800; }
+  }
+  @media (max-width: 760px) {
+    /* phones: one swipeable row instead of a tall stack of tags */
+    .tabs { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1) 32px; padding: 6px var(--gutter) 16px; scroll-padding-inline: var(--gutter); }
+  }
+  @media (max-width: 560px) {
+    .tab__name { font-size: 19px; }
+    .plan__cap span { font-size: 26px; }
+  }
+</style>
