@@ -98,7 +98,7 @@ const inquire = site.contact.facebookUrl;
     const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')));
     list.hidden = false;
     root.classList.add('tours--tabs');
-    const show = (i, focus) => {
+    const show = (i, focus, scroll = true) => {
       tabs.forEach((tab, j) => {
         const on = i === j;
         tab.setAttribute('aria-selected', String(on));
@@ -106,7 +106,8 @@ const inquire = site.contact.facebookUrl;
         panels[j].hidden = !on;
       });
       if (focus) tabs[i].focus();
-      tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+      // Only scroll on user interaction — scrolling during the initial setup would jump the page to this section on load.
+      if (scroll) tabs[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
     };
     tabs.forEach((tab, i) => {
       tab.addEventListener('click', () => show(i, false));
@@ -121,11 +122,11 @@ const inquire = site.contact.facebookUrl;
     const fromHash = () => {
       const i = panels.findIndex((p) => '#' + p.id === location.hash);
       if (i < 0) return;
-      show(i, false);
+      show(i, false, false);
       root.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     };
     addEventListener('hashchange', fromHash);
-    show(0, false);
+    show(0, false, false);
     fromHash();
   })();
 </script>
